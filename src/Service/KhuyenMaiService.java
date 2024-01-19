@@ -21,5 +21,20 @@ public class KhuyenMaiService implements KhuyenMaiServiceImpl{
     public ArrayList<KhuyenMai> getAll() {
         return km.getAllKM();
     }
+
+    @Override
+    public boolean add(KhuyenMai km) {
+       return this.km.add(km);
+    }
+
+    @Override
+    public boolean update(String ma, KhuyenMai km) {
+        return this.km.update(ma, km);
+    }
+
+    @Override
+    public ArrayList<KhuyenMai> timKiem(String ma, String ten, float mucGiam) {
+        return this.km.timKiem(ma, ten, mucGiam);
+    }
     
 }

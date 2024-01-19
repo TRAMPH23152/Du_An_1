@@ -14,4 +14,11 @@ import java.util.ArrayList;
 public interface KhuyenMaiServiceImpl {
 
     public ArrayList<KhuyenMai> getAll();
+
+    public boolean add(KhuyenMai km);
+
+    public boolean update(String ma, KhuyenMai km);
+
+    public ArrayList<KhuyenMai> timKiem(String ma, String ten, float mucGiam);
+
 }
