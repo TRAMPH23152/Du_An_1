@@ -57,7 +57,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
     SizeService sizeService = new SizeService();
     DeService deService = new DeService();
     NsxService nsxService = new NsxService();
-    
+
     List<String> listDanhMuc;
     List<String> listSanPham;
     List<String> listChatLieu;
@@ -69,9 +69,9 @@ public class Form_ChiTiet extends javax.swing.JFrame {
     List<ChiTietSPModel> chiTietSPModels;
     DefaultTableModel model;
     int index = 0;
-    
+
     long count, soTrang, trang = 1;
-    
+
     public Form_ChiTiet() {
         initComponents();
         setLocationRelativeTo(null);
@@ -86,7 +86,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         lbSoTrang.setText("1/" + soTrang);
         lbTrang.setText("1");
     }
-    
+
     public void countDB() {
         try {
             String query = "Select count(*) from CHITIETDEP";
@@ -96,7 +96,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             while (rs.next()) {
                 count = rs.getLong(1);
             }
-            
+
             rs.close();
             st.close();
             cn.close();
@@ -104,14 +104,14 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             Logger.getLogger(Form_ChiTiet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String conVertTinhTrangToString(int tinhTrang) {
         if (tinhTrang == 0) {
             return "Tam Ngung Ban";
         }
         return "Dang Ban";
     }
-    
+
     public int conVertTinhTrangToInt(String tinhTrang) {
         int number = 0;
         if (tinhTrang.equalsIgnoreCase("Tam Ngung Ban")) {
@@ -119,7 +119,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         }
         return 1;
     }
-    
+
     public void fillTableSanPham() {
         List<ChiTietDep> chiTietDeps = chiTietSanPhamService.getAll();
         if (chiTietDeps == null) {
@@ -130,23 +130,23 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
             model.setRowCount(0);
             for (ChiTietDep ctd : chiTietDeps) {
-                
+
                 model.addRow(new Object[]{
                     ctd.getId(),
-                    ctd.getIdSanPham().getTen(), 
-                    ctd.getIdDanhMuc()!=null ?ctd.getIdDanhMuc().getTen():"",
-                    ctd.getIdSize()!=null ?ctd.getIdSize().getKichCo():"", 
-                    ctd.getIdMauSac() !=null ?ctd.getIdMauSac().getMauSac() :"",
-                    ctd.getIdChatLieu()!=null ?ctd.getIdChatLieu().getTen() :"", 
-                    ctd.getIdNSX()!=null ?ctd.getIdNSX().getTen() :"",
-                    ctd.getIdDe()!=null ?ctd.getIdDe().getTen() :"", 
-                    ctd.getSoLuong()!=null ?ctd.getSoLuong() :"",
+                    ctd.getIdSanPham().getTen(),
+                    ctd.getIdDanhMuc() != null ? ctd.getIdDanhMuc().getTen() : "",
+                    ctd.getIdSize() != null ? ctd.getIdSize().getKichCo() : "",
+                    ctd.getIdMauSac() != null ? ctd.getIdMauSac().getMauSac() : "",
+                    ctd.getIdChatLieu() != null ? ctd.getIdChatLieu().getTen() : "",
+                    ctd.getIdNSX() != null ? ctd.getIdNSX().getTen() : "",
+                    ctd.getIdDe() != null ? ctd.getIdDe().getTen() : "",
+                    ctd.getSoLuong() != null ? ctd.getSoLuong() : "",
                     ctd.getGiaBan(), ctd.getMoTa(),
                     conVertTinhTrangToString(ctd.getTrangThai())});
             }
         }
     }
-    
+
     public void fillCboChiTiet() {
         listDanhMuc = chiTietSanPhamService.getDanhMuc();
         listDe = chiTietSanPhamService.getDe();
@@ -165,32 +165,32 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             for (String string : listDanhMuc) {
                 cboDanhMuc.addItem(string);
             }
-            
+
             cboDe.removeAllItems();
             for (String string : listDe) {
                 cboDe.addItem(string);
             }
-            
+
             cboSanPham.removeAllItems();
             for (String string : listSanPham) {
                 cboSanPham.addItem(string);
             }
-            
+
             cboSize.removeAllItems();
             for (String string : listSize) {
                 cboSize.addItem(string);
             }
-            
+
             cboNsx.removeAllItems();
             for (String string : listNsx) {
                 cboNsx.addItem(string);
             }
-            
+
             cboChatLieu.removeAllItems();
             for (String string : listChatLieu) {
                 cboChatLieu.addItem(string);
             }
-            
+
             cboMauSac.removeAllItems();
             for (String string : listMauSac) {
                 cboMauSac.addItem(string);
@@ -200,24 +200,24 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             for (String string : listDanhMuc) {
                 cboDanhMuc.addItem(string);
             }
-            
+
         }
     }
-    
+
     public boolean checkRongTxt(JTextField txt) {
         if (txt.getText().trim().equalsIgnoreCase("")) {
             return false;
         }
         return true;
     }
-    
+
     public boolean checkRongTxtArea(JTextArea txtA) {
         if (txtA.getText().trim().equalsIgnoreCase("")) {
             return false;
         }
         return true;
     }
-    
+
     public boolean checkPhaiLaSo(JTextField txt) {
         try {
             int a = Integer.parseInt(txt.getText());
@@ -227,7 +227,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         }
         return false;
     }
-    
+
     public boolean checkPhaiDuong(JTextField txt) {
         if (Integer.parseInt(txt.getText()) < 0) {
             return false;
@@ -744,9 +744,9 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         } else if (checkPhaiDuong(txtGia) == false || checkPhaiDuong(txtSoLuong) == false) {
             JOptionPane.showMessageDialog(this, "So luong và gia khong duoc am");
         }
-        
+
         ChiTietSPModel chiTietSPModel = new ChiTietSPModel();
-        chiTietSPModel.setTenDanhMuc(FillTenDanhMuc((String) cboDanhMuc.getSelectedItem()));        
+        chiTietSPModel.setTenDanhMuc(FillTenDanhMuc((String) cboDanhMuc.getSelectedItem()));
         chiTietSPModel.setTenSanPham(FillTenSanPham((String) cboSanPham.getSelectedItem()));
         chiTietSPModel.setTenSize(FillTenSize((String) cboSize.getSelectedItem()));
         chiTietSPModel.setTenMauSac(FillTenMauSac((String) cboMauSac.getSelectedItem()));
@@ -758,11 +758,12 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         chiTietSPModel.setMoTa(String.valueOf(txtMoTa.getText()));
         if (rdoDangBan.isSelected()) {
             chiTietSPModel.setTrangThai(1);
-        }else{
+        } else {
             chiTietSPModel.setTrangThai(0);
         }
         JOptionPane.showMessageDialog(this, chiTietSanPhamService.insertChiTiet(chiTietSPModel));
         listChiTietDep = chiTietSanPhamService.getAll();
+        clearFrom();
         fillTableSanPham();
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -794,7 +795,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             return;
         }
         ChiTietSPModel chiTietSPModel = new ChiTietSPModel();
-        chiTietSPModel.setTenDanhMuc(FillTenDanhMuc((String) cboDanhMuc.getSelectedItem()));        
+        chiTietSPModel.setTenDanhMuc(FillTenDanhMuc((String) cboDanhMuc.getSelectedItem()));
         chiTietSPModel.setTenSanPham(FillTenSanPham((String) cboSanPham.getSelectedItem()));
         chiTietSPModel.setTenSize(FillTenSize((String) cboSize.getSelectedItem()));
         chiTietSPModel.setTenMauSac(FillTenMauSac((String) cboMauSac.getSelectedItem()));
@@ -806,12 +807,13 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         chiTietSPModel.setMoTa(String.valueOf(txtMoTa.getText()));
         if (rdoDangBan.isSelected()) {
             chiTietSPModel.setTrangThai(1);
-        }else{
+        } else {
             chiTietSPModel.setTrangThai(0);
         }
         chiTietSPModel.setId(Integer.parseInt(lblid.getText()));
         JOptionPane.showMessageDialog(this, chiTietSanPhamService.updateChiTiet(chiTietSPModel));
         listChiTietDep = chiTietSanPhamService.getAll();
+        clearFrom();
         fillTableSanPham();
 
     }//GEN-LAST:event_btnCapNhatActionPerformed
@@ -847,35 +849,48 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             lbSoTrang.setText(trang + "/" + soTrang);
         }
     }//GEN-LAST:event_btLonActionPerformed
-    
+
     private SanPham FillTenSanPham(String ten) {
         return sanPhamService.getIDByName(ten);
     }
-    
+
     private DanhMuc FillTenDanhMuc(String ten) {
         return danhMucService.getIDByName(ten);
     }
-    
+
     private Size FillTenSize(String ten) {
         return sizeService.getIDByName(ten);
     }
-    
+
     private NhaSanXuat FillTenNhaSanXuat(String ten) {
         return nsxService.getIDByName(ten);
     }
-    
+
     private ChatLieu FillTenChatLieu(String ten) {
         return chatLieuService.getIDByName(ten);
     }
-    
+
     private De FillTenDe(String ten) {
         return deService.getIDByName(ten);
     }
-    
+
     private MauSac FillTenMauSac(String ten) {
         return mauSacService.getIDByName(ten);
     }
 
+    public void clearFrom() {
+        txtGia.setText("");
+        txtMoTa.setText("");
+        txtSoLuong.setText("");
+        cboDanhMuc.setSelectedIndex(0);
+        rdoDangBan.setSelected(true);
+        cboChatLieu.setSelectedIndex(0);
+        cboDe.setSelectedIndex(0);
+        cboSanPham.setSelectedIndex(0);
+        cboNsx.setSelectedIndex(0);
+        cboSize.setSelectedIndex(0);
+        cboMauSac.setSelectedIndex(0);
+    }
     /**
      * @param args the command line arguments
      */
