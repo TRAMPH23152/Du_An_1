@@ -70,16 +70,19 @@ public class MauSacRepository {
     }    
     
     public boolean insertMauSac(MauSac mauSac) {
-        String sql = "insert into MAUSAC (Ma , MauSac) values (?,?)";
-        try (Connection connection = dBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setObject(1, mauSac.getMa());
-            ps.setObject(2, mauSac.getMauSac());
-            int result = ps.executeUpdate();
-            return result > 0;
+        try (Connection connection = dBConnection.getConnection()) {
+            String sql = "insert into MAUSAC (Ma , MauSac) values (?,?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, mauSac.getMa());
+                preparedStatement.setString(2, mauSac.getMauSac());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                return rowsAffected > 0;
+            }
         } catch (SQLException ex) {
-           Logger.getLogger(MauSacRepository.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MauSacRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 
     public boolean updateMauSac(String Ma, MauSac mauSac) {

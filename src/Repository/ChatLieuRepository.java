@@ -68,18 +68,21 @@ public class ChatLieuRepository {
         }
         return null;
     }
-
+    
     public boolean insertChatLieu(ChatLieu chatLieu) {
-        String sql = "insert into CHATLIEU (Ma , Ten) values (?,?)";
-        try (Connection connection = dBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setObject(1, chatLieu.getMa());
-            ps.setObject(2, chatLieu.getTen());
-            int result = ps.executeUpdate();
-            return result > 0;
+        try (Connection connection = dBConnection.getConnection()) {
+            String sql = "insert into CHATLIEU (Ma , Ten) values (?,?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, chatLieu.getMa());
+                preparedStatement.setString(2, chatLieu.getTen());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                return rowsAffected > 0;
+            }
         } catch (SQLException ex) {
-           Logger.getLogger(ChatLieuRepository.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChatLieuRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 
     public boolean updateChatLieu(String Ma, ChatLieu chatLieu) {

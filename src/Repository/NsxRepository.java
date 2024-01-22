@@ -69,18 +69,22 @@ public class NsxRepository {
         return null;
     }
     
-    public boolean insertNsx(NhaSanXuat nsx) {
-        String sql = "insert into NSX (Ma , Ten) values (?,?)";
-        try (Connection connection = dBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setObject(1, nsx.getMa());
-            ps.setObject(2, nsx.getTen());
-            int result = ps.executeUpdate();
-            return result > 0;
+    public boolean addNhaSanXuat(NhaSanXuat nhaSanXuat) {
+        try (Connection connection = dBConnection.getConnection()) {
+            String sql = "INSERT INTO NSX (Ma, Ten) VALUES (?, ?)";
+           try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, nhaSanXuat.getMa());
+                preparedStatement.setString(2, nhaSanXuat.getTen());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                return rowsAffected > 0;
+            }
         } catch (SQLException ex) {
-           Logger.getLogger(NsxRepository.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(NsxRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
+    
 
     public boolean updateNsx(String Ma, NhaSanXuat nsx) {
         try {

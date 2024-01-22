@@ -15,9 +15,9 @@ public interface SanPhamImpl {
     
     public ArrayList<SanPham> getAllSanPhamService();
     
-    public String insert(SanPham sp);
+    public boolean insert(SanPham sp);
     
-    public String update(SanPham sp);
+    public boolean update(SanPham sp);
     
     public SanPham getSanPhamMa(String ma);
     

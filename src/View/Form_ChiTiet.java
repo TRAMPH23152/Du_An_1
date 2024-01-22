@@ -133,10 +133,14 @@ public class Form_ChiTiet extends javax.swing.JFrame {
                 
                 model.addRow(new Object[]{
                     ctd.getId(),
-                    ctd.getIdSanPham().getTen(), ctd.getIdDanhMuc().getTen(),
-                    ctd.getIdSize().getKichCo(), ctd.getIdMauSac().getMauSac(),
-                    ctd.getIdChatLieu().getTen(), ctd.getIdNSX().getTen(),
-                    ctd.getIdDe().getTen(), ctd.getSoLuong(),
+                    ctd.getIdSanPham().getTen(), 
+                    ctd.getIdDanhMuc()!=null ?ctd.getIdDanhMuc().getTen():"",
+                    ctd.getIdSize()!=null ?ctd.getIdSize().getKichCo():"", 
+                    ctd.getIdMauSac() !=null ?ctd.getIdMauSac().getMauSac() :"",
+                    ctd.getIdChatLieu()!=null ?ctd.getIdChatLieu().getTen() :"", 
+                    ctd.getIdNSX()!=null ?ctd.getIdNSX().getTen() :"",
+                    ctd.getIdDe()!=null ?ctd.getIdDe().getTen() :"", 
+                    ctd.getSoLuong()!=null ?ctd.getSoLuong() :"",
                     ctd.getGiaBan(), ctd.getMoTa(),
                     conVertTinhTrangToString(ctd.getTrangThai())});
             }
@@ -196,36 +200,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
             for (String string : listDanhMuc) {
                 cboDanhMuc.addItem(string);
             }
-            listDe.add("All");
-            cboDe.removeAllItems();
-            for (String string : listDe) {
-                cboDe.addItem(string);
-            }
-            listSanPham.add("All");
-            cboSanPham.removeAllItems();
-            for (String string : listSanPham) {
-                cboSanPham.addItem(string);
-            }
-            listSize.add("All");
-            cboSize.removeAllItems();
-            for (String string : listSize) {
-                cboSize.addItem(string);
-            }
-            listNsx.add("All");
-            cboNsx.removeAllItems();
-            for (String string : listNsx) {
-                cboNsx.addItem(string);
-            }
-            listChatLieu.add("All");
-            cboChatLieu.removeAllItems();
-            for (String string : listChatLieu) {
-                cboChatLieu.addItem(string);
-            }
-            listMauSac.add("All");
-            cboMauSac.removeAllItems();
-            for (String string : listMauSac) {
-                cboMauSac.addItem(string);
-            }
+            
         }
     }
     

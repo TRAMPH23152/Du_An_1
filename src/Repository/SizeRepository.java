@@ -69,26 +69,29 @@ public class SizeRepository {
         return null;
     }
     
-    public boolean insertSize(Size chatLieu) {
-        String sql = "insert into CHATLIEU (Ma , KichCo) values (?,?)";
-        try (Connection connection = dBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setObject(1, chatLieu.getMa());
-            ps.setObject(2, chatLieu.getKichCo());
-            int result = ps.executeUpdate();
-            return result > 0;
+    public boolean insertSize(Size size) {
+        try (Connection connection = dBConnection.getConnection()) {
+            String sql = "insert into CHATLIEU (Ma , KichCo) values (?,?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, size.getMa());
+                preparedStatement.setFloat(2, size.getKichCo());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                return rowsAffected > 0;
+            }
         } catch (SQLException ex) {
            Logger.getLogger(SizeRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 
-    public boolean updateSize(String Ma, Size chatLieu) {
+    public boolean updateSize(String Ma, Size size) {
         try {
             Connection connection = dBConnection.getConnection();
             String sql = "update CHATLIEU set KichCo = ? where Ma = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setObject(1, chatLieu.getKichCo());
-            ps.setObject(2, chatLieu.getMa());
+            ps.setObject(1, size.getKichCo());
+            ps.setObject(2, size.getMa());
             
             ps.execute();
         } catch (SQLException ex) {

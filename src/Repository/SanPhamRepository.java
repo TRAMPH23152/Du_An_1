@@ -97,13 +97,14 @@ public class SanPhamRepository {
         return false;
     }
 
-    public boolean updateSanPham(String Ma, SanPham sanPham) {
+    public boolean updateSanPham(SanPham sanPham) {
         try {
             Connection connection = dBConnection.getConnection();
-            String sql = "update SANPHAM set Ten = ? where Ma = ?";
+            String sql = "update SANPHAM set Ten = ?, Ma = ?  where Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setObject(1, sanPham.getTen());
-            ps.setObject(2, sanPham.getMa());
+            ps.setObject(2, sanPham.getTen());
+            ps.setObject(1, sanPham.getMa());
+            
             
             ps.execute();
         } catch (SQLException ex) {

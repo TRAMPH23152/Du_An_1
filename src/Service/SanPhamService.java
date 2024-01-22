@@ -23,13 +23,13 @@ public class SanPhamService implements SanPhamImpl{
     }
 
     @Override
-    public String insert(SanPham sp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean insert(SanPham sp) {
+        return sanPhamRepository.insertSanPham(sp);
     }
 
     @Override
-    public String update(SanPham sp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(SanPham sp) {
+        return sanPhamRepository.updateSanPham(sp);
     }
 
     @Override

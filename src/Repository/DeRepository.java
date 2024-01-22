@@ -11,21 +11,21 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author ADMIN
  */
 public class DeRepository {
-    
+
     DBConnection dBConnection;
-    
-    public ArrayList<De> getAllDe(){
+
+    public ArrayList<De> getAllDe() {
         ArrayList<De> des = new ArrayList<>();
         String sql = "select * from DE";
-        try (Connection con = dBConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)){
+        try (Connection con = dBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 De cl = new De();
                 cl.setIdDe(rs.getInt("Id"));
                 cl.setMa(rs.getString("Ma"));
@@ -38,6 +38,7 @@ public class DeRepository {
         }
         return des;
     }
+
     public De getDeByID(String id) {
 
         String sql = "SELECT * FROM DE WHERE Id=?";
@@ -47,12 +48,12 @@ public class DeRepository {
                 return new De(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
             }
         } catch (SQLException ex) {
-            
-           Logger.getLogger(DeRepository.class.getName()).log(Level.SEVERE, null, ex);
+
+            Logger.getLogger(DeRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
+
     public De getDeTen(String ten) {
 
         String sql = "SELECT * FROM DE WHERE Ten=?";
@@ -62,26 +63,29 @@ public class DeRepository {
                 return new De(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
             }
         } catch (SQLException ex) {
-            
-           Logger.getLogger(DeRepository.class.getName()).log(Level.SEVERE, null, ex);
+
+            Logger.getLogger(DeRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
+
     public boolean insertDe(De de) {
-        String sql = "insert into DE (Ma , Ten) values (?,?)";
-        try (Connection connection = dBConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setObject(1, de.getMa());
-            ps.setObject(2, de.getTen());
-            int result = ps.executeUpdate();
-            return result > 0;
+        try (Connection connection = dBConnection.getConnection()) {
+            String sql = "INSERT INTO DE (Ma , Ten) VALUES (?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, de.getMa());
+                preparedStatement.setString(2, de.getTen());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                return rowsAffected > 0;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DeRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 
-    public boolean updateDe(String Ma,De de) {
+    public boolean updateDe(String Ma, De de) {
         try {
             Connection connection = dBConnection.getConnection();
 

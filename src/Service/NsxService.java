@@ -24,7 +24,7 @@ public class NsxService implements NsxImpl{
 
     @Override
     public String insert(NhaSanXuat nsx) {
-        if (nsxRepository.insertNsx(nsx)) {
+        if (nsxRepository.addNhaSanXuat(nsx)) {
             return "Them Thanh Cong";
         } else {
             return "Them That Bai";

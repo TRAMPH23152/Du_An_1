@@ -114,18 +114,17 @@ public class ChiTietSanPhamRepository {
         }
         return false;
     }
-    
+
     public boolean addChiTietSanPham(ChiTietSPModel chiTietDep) {
-        String sql = "insert into CHITIETDEP (IdSanPham.Ma,IdSanPham.Ten,IdDanhMuc,GiaBan,MoTa,HinhAnh,TrangThai) values \n"
-                + " (?,?,?,?,?,?,?)";
+        String sql = "insert into CHITIETDEP (IdSanPham,IdDanhMuc,GiaBan,MoTa,HinhAnh,TrangThai) values \n"
+                + " (?,?,?,?,?,?)";
         try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, chiTietDep.getTenSanPham().getMa());
-            ps.setObject(2, chiTietDep.getTenSanPham().getIdSanPham());
-            ps.setObject(3, chiTietDep.getTenDanhMuc().getIdDanhMuc());
-            ps.setObject(4, chiTietDep.getGiaBan());
-            ps.setObject(5, chiTietDep.getMoTa());
+            ps.setObject(1, chiTietDep.getTenSanPham().getIdSanPham());
+            ps.setObject(2, chiTietDep.getTenDanhMuc().getIdDanhMuc());
+            ps.setObject(3, chiTietDep.getGiaBan());
+            ps.setObject(4, chiTietDep.getMoTa());
             ps.setObject(6, chiTietDep.getTrangThai());
-            ps.setObject(7, chiTietDep.getImageUrl());
+            ps.setObject(5, chiTietDep.getImageUrl());
             int result = ps.executeUpdate();
             return result > 0;
         } catch (Exception e) {
@@ -158,6 +157,92 @@ public class ChiTietSanPhamRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean updateChiTietSanPham(ChiTietSPModel chiTietDep) {
+        String sql = "update CHITIETDEP set IdDanhMuc = ? , IdSanPham = ? ,GiaBan = ?,MoTa = ?,HinhAnh = ?,TrangThai = ? where Id = ?";
+        try (Connection con = DBConnection.getConnection()) {
+            CallableStatement ps = con.prepareCall(sql);
+
+            ps.setObject(1, chiTietDep.getTenSanPham().getIdSanPham());
+            ps.setObject(2, chiTietDep.getTenDanhMuc().getIdDanhMuc());
+            ps.setObject(3, chiTietDep.getGiaBan());
+            ps.setObject(4, chiTietDep.getMoTa());
+            ps.setObject(6, chiTietDep.getTrangThai());
+            ps.setObject(5, chiTietDep.getImageUrl());
+            ps.setObject(7, chiTietDep.getId());
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<ChiTietDep> searchChiTietDep(String keyword) {
+        List<ChiTietDep> chiTietDepList = new ArrayList<>();
+        try (Connection connection = dBConnection.getConnection()) {
+            String sql = "SELECT * FROM CHITIETDEP ctd "
+                    + "JOIN DanhMuc dm ON ctd.IdDanhMuc = dm.Id "
+                    + "WHERE dm.Ten LIKE ? ";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, "%" + keyword + "%");
+                
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int id = resultSet.getInt("Id");
+                        int idSanPham = resultSet.getInt("IdSanPham");
+                        int idDanhMuc = resultSet.getInt("IdDanhMuc");
+                        int idSize = resultSet.getInt("IdSize");
+                        int idMauSac = resultSet.getInt("IdMauSac");
+                        int idChatLieu = resultSet.getInt("IdChatLieu");
+                        int idNSX = resultSet.getInt("IdNSX");
+                        int idDe = resultSet.getInt("IdDe");
+                        int soLuong = resultSet.getInt("SoLuong");
+                        float giaNhap = resultSet.getFloat("GiaNhap");
+                        float giaBan = resultSet.getFloat("GiaBan");
+                        String moTa = resultSet.getString("MoTa");
+                        String hinhAnh = resultSet.getString("HinhAnh");
+                        int trangThai = resultSet.getInt("TrangThai");
+
+                        ChiTietDep chiTietDep = new ChiTietDep(id,
+                                new SanPham(idSanPham, "", "", 0),
+                                new DanhMuc(idDanhMuc, "", ""),
+                                new Size(idSize, "", 0.0f, 0),
+                                new MauSac(idMauSac, "", "", 0),
+                                new ChatLieu(idChatLieu, "", "", 0),
+                                new NhaSanXuat(idNSX, "", "", 0),
+                                new De(idDe, "", "", 0),
+                                soLuong,
+                                giaNhap,
+                                giaBan,
+                                moTa,
+                                hinhAnh,
+                                trangThai);
+
+                        chiTietDepList.add(chiTietDep);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chiTietDepList;
+    }
+
+    public String getIDDanhMuc(String tenDanhMuc) {
+        String sql = "SELECT Id from DANHMUC WHERE Ten = ?";
+        String idDanhMuc = "";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, tenDanhMuc);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                idDanhMuc = rs.getString("Id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return idDanhMuc;
     }
 
     public ArrayList<ChiTietDep> getAllHoaDonSP() {

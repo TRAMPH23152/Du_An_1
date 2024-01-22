@@ -52,6 +52,22 @@ public class ChiTietSanPhamService {
             return "Sua That Bai";
         }
     }
+    
+    public String updateChiTietSanPham(ChiTietSPModel ctd) {
+        if (chiTietSanPhamRepository.updateChiTietSanPham(ctd)) {
+            return "Sua Thanh Cong";
+        } else {
+            return "Sua That Bai";
+        }
+    }
+    
+     public List<ChiTietDep> searchChiTietDep(String keyword) {
+        return chiTietSanPhamRepository.searchChiTietDep(keyword);
+    }
+
+    public String getIDDanhMuc(String tenDanhMuc) {
+        return chiTietSanPhamRepository.getIDDanhMuc(tenDanhMuc);
+    }
 
     public List<ChiTietDep> getAllHdSp() {
         return this.chiTietSanPhamRepository.getAllHoaDonSP();
