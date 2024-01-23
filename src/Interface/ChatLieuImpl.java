@@ -15,9 +15,9 @@ public interface ChatLieuImpl {
     
     public ArrayList<ChatLieu> getAllChatLieuService();
     
-    public String insert(ChatLieu cl);
+    public boolean insert(ChatLieu cl);
     
-    public String update(String Ma,ChatLieu cl);
+    public boolean update(ChatLieu cl);
     
     public ChatLieu getIDByName(String chatLieu);
     

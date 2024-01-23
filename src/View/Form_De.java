@@ -365,7 +365,7 @@ public class Form_De extends javax.swing.JFrame {
             String ma = txtMaDe.getText();
             String doCao = txtDoCao.getText();
             De de = new De(0, ma, doCao, WIDTH);
-            deService.update(ma, de);
+            deService.update(de);
             loadData(trang);
             JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
         } catch (Exception e) {

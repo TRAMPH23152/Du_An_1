@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public interface DeImpl {
     public ArrayList<De> getAllDeService();
     
-    public String insert(De cl);
+    public boolean insert(De cl);
     
-    public String update(String Ma,De cl);
+    public boolean update(De cl);
     
     public De getIDByName(String de);
     

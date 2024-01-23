@@ -87,7 +87,7 @@ public class DanhMucRepository {
         }
     }
 
-    public boolean updateDanhMuc(String Ma, DanhMuc danhMuc) {
+    public boolean updateDanhMuc(DanhMuc danhMuc) {
         try {
             Connection connection = dBConnection.getConnection();
 
@@ -97,9 +97,10 @@ public class DanhMucRepository {
             ps.setObject(1, danhMuc.getMa());
             ps.setObject(3, danhMuc.getIdDanhMuc());
             ps.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DanhMucRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 }

@@ -23,21 +23,13 @@ public class NsxService implements NsxImpl{
     }
 
     @Override
-    public String insert(NhaSanXuat nsx) {
-        if (nsxRepository.addNhaSanXuat(nsx)) {
-            return "Them Thanh Cong";
-        } else {
-            return "Them That Bai";
-        }
+    public boolean insert(NhaSanXuat nsx) {
+        return nsxRepository.addNhaSanXuat(nsx);
     }
 
     @Override
-    public String update(String Ma,NhaSanXuat nsx) {
-        if (nsxRepository.updateNsx(Ma, nsx)) {
-            return "Cap Nhat Thanh Cong";
-        } else {
-            return "Cap Nhat That Bai";
-        }
+    public boolean update(NhaSanXuat nsx) {
+        return nsxRepository.updateNsx( nsx);
     }
 
     @Override

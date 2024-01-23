@@ -355,7 +355,7 @@ public class Form_ChatLieu extends javax.swing.JFrame {
             String ma = txtMaChatLieu.getText();
             String ten = txtTenChatLieu.getText();
             ChatLieu chatLieu = new ChatLieu(0, ma, ten,WIDTH);
-            chatLieuService.update(ma, chatLieu);
+            chatLieuService.update(chatLieu);
             loadData(trang);
             JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
         } catch (Exception e) {

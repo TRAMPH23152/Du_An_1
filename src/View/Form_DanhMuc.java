@@ -371,7 +371,7 @@ public class Form_DanhMuc extends javax.swing.JFrame {
             String ma = txtMaDanhMuc.getText();
             String ten = txtTenDanhMuc.getText();
             DanhMuc danhMuc = new DanhMuc(0, ma, ten);
-            danhMucService.update(ma, danhMuc);
+            danhMucService.update(danhMuc);
             loadData(trang);
             JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
         } catch (Exception e) {

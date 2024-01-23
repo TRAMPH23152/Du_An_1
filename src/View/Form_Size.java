@@ -385,7 +385,7 @@ public class Form_Size extends javax.swing.JFrame {
             Float kichCo = Float.valueOf(txtKichCo.getText());
             Size size = new Size(0, ma, kichCo, WIDTH);
 
-            sizeService.insert(size);
+            sizeService.update(size);
             loadData(trang);
             JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
         } catch (Exception e) {

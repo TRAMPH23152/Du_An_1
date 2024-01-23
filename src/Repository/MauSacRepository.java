@@ -11,21 +11,21 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author ADMIN
  */
 public class MauSacRepository {
-    
+
     DBConnection dBConnection;
-    
-    public ArrayList<MauSac> getAllMauSac(){
+
+    public ArrayList<MauSac> getAllMauSac() {
         ArrayList<MauSac> mauSacs = new ArrayList<>();
         String sql = "select * from MAUSAC";
-        try (Connection con = dBConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)){
+        try (Connection con = dBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 MauSac ms = new MauSac();
                 ms.setId(rs.getInt("Id"));
                 ms.setMa(rs.getString("Ma"));
@@ -38,7 +38,7 @@ public class MauSacRepository {
         }
         return mauSacs;
     }
-    
+
     public MauSac getMauSacID(String id) {
 
         String sql = "SELECT * FROM MAUSAC WHERE Id=?";
@@ -48,12 +48,12 @@ public class MauSacRepository {
                 return new MauSac(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
             }
         } catch (SQLException ex) {
-            
-           Logger.getLogger(MauSacRepository.class.getName()).log(Level.SEVERE, null, ex);
+
+            Logger.getLogger(MauSacRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }    
-    
+    }
+
     public MauSac getMauSacTen(String ten) {
 
         String sql = "SELECT * FROM MAUSAC WHERE MauSac =?";
@@ -63,12 +63,12 @@ public class MauSacRepository {
                 return new MauSac(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
             }
         } catch (SQLException ex) {
-            
-           Logger.getLogger(MauSacRepository.class.getName()).log(Level.SEVERE, null, ex);
+
+            Logger.getLogger(MauSacRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }    
-    
+    }
+
     public boolean insertMauSac(MauSac mauSac) {
         try (Connection connection = dBConnection.getConnection()) {
             String sql = "insert into MAUSAC (Ma , MauSac) values (?,?)";
@@ -85,18 +85,19 @@ public class MauSacRepository {
         }
     }
 
-    public boolean updateMauSac(String Ma, MauSac mauSac) {
+    public boolean updateMauSac(MauSac mauSac) {
         try {
             Connection connection = dBConnection.getConnection();
             String sql = "update MAUSAC set MauSac = ? where Ma = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, mauSac.getMauSac());
             ps.setObject(2, mauSac.getMa());
-            
+
             ps.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(MauSacRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 }

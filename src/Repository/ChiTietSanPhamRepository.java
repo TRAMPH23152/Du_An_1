@@ -179,48 +179,27 @@ public class ChiTietSanPhamRepository {
         return false;
     }
 
-    public List<ChiTietDep> searchChiTietDep(String keyword) {
+    public List<ChiTietDep> searchChiTietDep(String keyword, Float giaB) {
         List<ChiTietDep> chiTietDepList = new ArrayList<>();
         try (Connection connection = dBConnection.getConnection()) {
             String sql = "SELECT * FROM CHITIETDEP ctd "
                     + "JOIN DanhMuc dm ON ctd.IdDanhMuc = dm.Id "
-                    + "WHERE dm.Ten LIKE ? ";
+                    + "WHERE dm.Ten LIKE ? and (? is null or giaBan = ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, "%" + keyword + "%");
-                
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int id = resultSet.getInt("Id");
-                        int idSanPham = resultSet.getInt("IdSanPham");
-                        int idDanhMuc = resultSet.getInt("IdDanhMuc");
-                        int idSize = resultSet.getInt("IdSize");
-                        int idMauSac = resultSet.getInt("IdMauSac");
-                        int idChatLieu = resultSet.getInt("IdChatLieu");
-                        int idNSX = resultSet.getInt("IdNSX");
-                        int idDe = resultSet.getInt("IdDe");
-                        int soLuong = resultSet.getInt("SoLuong");
-                        float giaNhap = resultSet.getFloat("GiaNhap");
-                        float giaBan = resultSet.getFloat("GiaBan");
-                        String moTa = resultSet.getString("MoTa");
-                        String hinhAnh = resultSet.getString("HinhAnh");
-                        int trangThai = resultSet.getInt("TrangThai");
+                preparedStatement.setString(1,  keyword);
+                preparedStatement.setObject(2, giaB);
+                preparedStatement.setObject(3, giaB);
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    while (rs.next()) {
+                        SanPham sp = spr.getSanPhamByID(rs.getString(3));
+                        DanhMuc dm = dmr.getDanhMucByID(rs.getString(2));
+                        Size s = sizer.getSizeByID(rs.getString(4));
+                        MauSac ms = msr.getMauSacID(rs.getString(5));
+                        ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
+                        NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
+                        De d = der.getDeByID(rs.getString(8));
+                        chiTietDepList.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
-                        ChiTietDep chiTietDep = new ChiTietDep(id,
-                                new SanPham(idSanPham, "", "", 0),
-                                new DanhMuc(idDanhMuc, "", ""),
-                                new Size(idSize, "", 0.0f, 0),
-                                new MauSac(idMauSac, "", "", 0),
-                                new ChatLieu(idChatLieu, "", "", 0),
-                                new NhaSanXuat(idNSX, "", "", 0),
-                                new De(idDe, "", "", 0),
-                                soLuong,
-                                giaNhap,
-                                giaBan,
-                                moTa,
-                                hinhAnh,
-                                trangThai);
-
-                        chiTietDepList.add(chiTietDep);
                     }
                 }
             }

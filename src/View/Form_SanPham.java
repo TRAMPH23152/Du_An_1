@@ -73,8 +73,8 @@ public class Form_SanPham extends javax.swing.JPanel {
     public Form_SanPham() {
         initComponents();
         chiTietSanPhamService = new ChiTietSanPhamService();
-
-        fillTableSanPham();
+        listSanPham = chiTietSanPhamService.getAllSanPham();
+        fillTableSanPham(listSanPham);
         fillCboSanPham();
 
     }
@@ -93,17 +93,17 @@ public class Form_SanPham extends javax.swing.JPanel {
         }
         return 1;
     }
-
-    public void fillTableSanPham() {
-        listSanPham = chiTietSanPhamService.getAllSanPham();
+    
+    public void fillTableSanPham(List<ChiTietDep> chiTietDeps) {
+        
         DefaultTableModel def = (DefaultTableModel) tbDanhSach.getModel();
         def.setRowCount(0);
 
         int start = currentPage * pageSize;
-        int end = Math.min(start + pageSize, listSanPham.size());
+        int end = Math.min(start + pageSize, chiTietDeps.size());
 
         for (int i = start; i < end; i++) {
-            ChiTietDep sp = listSanPham.get(i);
+            ChiTietDep sp = chiTietDeps.get(i);
             Object[] rowData = {
                 sp.getId(),
                 sp.getIdSanPham().getMa(), sp.getIdSanPham().getTen(),
@@ -205,6 +205,7 @@ public class Form_SanPham extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         anhChiTiet = new javax.swing.JLabel();
@@ -311,6 +312,12 @@ public class Form_SanPham extends javax.swing.JPanel {
         btnChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChiTietActionPerformed(evt);
+            }
+        });
+
+        cboDanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDanhMucActionPerformed(evt);
             }
         });
 
@@ -438,6 +445,12 @@ public class Form_SanPham extends javax.swing.JPanel {
         jLabel14.setText("Danh Mục");
 
         jLabel15.setText("Giá Tiền");
+
+        cboLocDanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboLocDanhMucActionPerformed(evt);
+            }
+        });
 
         btnLoc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Untitled-1.png"))); // NOI18N
@@ -609,7 +622,7 @@ public class Form_SanPham extends javax.swing.JPanel {
         chiTietSPModel.setImageUrl(imageUrl);
         JOptionPane.showMessageDialog(this, chiTietSanPhamService.insertChiTietSanPham(chiTietSPModel));
         listSanPham = chiTietSanPhamService.getAll();
-        fillTableSanPham();
+        fillTableSanPham(listSanPham);
         clearFrom();
         showImage(imageUrl);
     }//GEN-LAST:event_btnThemActionPerformed
@@ -653,7 +666,7 @@ public class Form_SanPham extends javax.swing.JPanel {
         chiTietSPModel.setId(Integer.parseInt(lblId.getText()));
         JOptionPane.showMessageDialog(this, chiTietSanPhamService.updateChiTietSanPham(chiTietSPModel));
         listSanPham = chiTietSanPhamService.getAll();
-        fillTableSanPham();
+        fillTableSanPham(listSanPham);
         clearFrom();
         showImage(imageUrl);
     }//GEN-LAST:event_btnCapNhatActionPerformed
@@ -691,25 +704,19 @@ public class Form_SanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
-        String keyword = cboLocDanhMuc.getItemAt(index);
-        
-
-        List<ChiTietDep> chiTietDepList = chiTietSanPhamService.searchChiTietDep(keyword);
-        System.out.println(chiTietDepList);
-        fillTableSanPham();
-        if (chiTietDepList.isEmpty()) {
-            model.setRowCount(0);
-            JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm");
-            return;
+        String keyword = (String) cboLocDanhMuc.getSelectedItem();
+        Float gia = txtLocGia.getText().trim().equals("")?null : Float.parseFloat( txtLocGia.getText());
+        if (keyword.equalsIgnoreCase("all") ) {
+            listSanPham = chiTietSanPhamService.getAll();
+        } else {
+            listSanPham = chiTietSanPhamService.searchChiTietDep(keyword,gia);
         }
-        fillTableSanPham();
-//        String chiTietDeps = chiTietSanPhamService.getIDDanhMuc(cboLocDanhMuc.getSelectedItem() + "");
-//        if (chiTietDeps.isEmpty()) {
-//            model.setRowCount(0);
-//            JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm");
-//            return;
-//        }
-//        fillTableSanPham();
+
+        System.out.println(keyword + "trong");
+        if (listSanPham.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm");
+        }
+        fillTableSanPham(listSanPham);
     }//GEN-LAST:event_btnLocActionPerformed
 
     private void tbDanhSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachMouseClicked
@@ -735,16 +742,24 @@ public class Form_SanPham extends javax.swing.JPanel {
     private void btLonMaxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLonMaxMouseClicked
         if (currentPage < (int) Math.ceil((double) listSanPham.size() / pageSize) - 1) {
             currentPage++;
-            fillTableSanPham();
+            fillTableSanPham(listSanPham);
         }
     }//GEN-LAST:event_btLonMaxMouseClicked
 
     private void btNhoMaxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btNhoMaxMouseClicked
         if (currentPage > 0) {
             currentPage--;
-            fillTableSanPham();
+            fillTableSanPham(listSanPham);
         }
     }//GEN-LAST:event_btNhoMaxMouseClicked
+
+    private void cboLocDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLocDanhMucActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboLocDanhMucActionPerformed
+
+    private void cboDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDanhMucActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboDanhMucActionPerformed
 
     public void clearFrom() {
         txtMaSanPham.setText("");
@@ -782,6 +797,7 @@ public class Form_SanPham extends javax.swing.JPanel {
     private javax.swing.JButton btnUpLoad;
     private javax.swing.JButton btnXuatExcel;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cboDanhMuc;
     private javax.swing.JComboBox<String> cboLocDanhMuc;
     private javax.swing.JLabel jLabel12;

@@ -26,20 +26,13 @@ public class ChatLieuService implements ChatLieuImpl{
     }
 
     @Override
-    public String insert(ChatLieu cl) {
-        if (chatLieuRepository.insertChatLieu(cl)) {
-            return "Them Thanh Cong";
-        } else {
-            return "Them That Bai";
-        }
+    public boolean insert(ChatLieu cl) {
+        return chatLieuRepository.insertChatLieu(cl);
     }
 
     @Override
-    public String update(String Ma,ChatLieu cl) {
-        if (chatLieuRepository.updateChatLieu(Ma, cl)) {
-            return "Sua Thanh Cong";
-        }
-        return "Sua That Bai";
+    public boolean update(ChatLieu cl) {
+        return chatLieuRepository.updateChatLieu(cl);
     }
 
     @Override

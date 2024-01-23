@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public interface DanhMucImpl {
     public ArrayList<DanhMuc> getAllDanhMucRepository();
     
-    public String insert(DanhMuc dm);
+    public boolean insert(DanhMuc dm);
     
-    public String update(String Ma,DanhMuc dm);
+    public boolean update(DanhMuc dm);
     
     public DanhMuc getIDByName(String danhMuc);
     

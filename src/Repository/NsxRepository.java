@@ -86,7 +86,7 @@ public class NsxRepository {
     }
     
 
-    public boolean updateNsx(String Ma, NhaSanXuat nsx) {
+    public boolean updateNsx(NhaSanXuat nsx) {
         try {
             Connection connection = dBConnection.getConnection();
             String sql = "update NSX set Ten = ? where Ma = ?";
@@ -95,9 +95,10 @@ public class NsxRepository {
             ps.setObject(2, nsx.getMa());
             
             ps.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(NsxRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 }

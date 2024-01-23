@@ -365,7 +365,7 @@ public class Form_MauSac extends javax.swing.JFrame {
             String ma = txtMaMauSac.getText();
             String ten = txtTenMauSac.getText();
             MauSac mauSac = new MauSac(0, ma, ten, WIDTH);
-            mauSacService.update(ma, mauSac);
+            mauSacService.update(mauSac);
             loadData(trang);
             JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
         } catch (Exception e) {

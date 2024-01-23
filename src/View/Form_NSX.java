@@ -364,7 +364,7 @@ public class Form_NSX extends javax.swing.JFrame {
             String ma = txtMaNSX.getText();
             String ten = txtTenNsx.getText();
             NhaSanXuat danhMuc = new NhaSanXuat(0, ma, ten, WIDTH);
-            nsxService.update(ma, danhMuc);
+            nsxService.insert(danhMuc);
             loadData(trang);
             JOptionPane.showMessageDialog(this, "Add thanh cong.");
         } catch (Exception e) {
@@ -381,7 +381,7 @@ public class Form_NSX extends javax.swing.JFrame {
             String ma = txtMaNSX.getText();
             String ten = txtTenNsx.getText();
             NhaSanXuat danhMuc = new NhaSanXuat(0, ma, ten, WIDTH);
-            nsxService.update(ma, danhMuc);
+            nsxService.update(danhMuc);
             loadData(trang);
             JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
         } catch (Exception e) {

@@ -71,7 +71,7 @@ public class SizeRepository {
     
     public boolean insertSize(Size size) {
         try (Connection connection = dBConnection.getConnection()) {
-            String sql = "insert into CHATLIEU (Ma , KichCo) values (?,?)";
+            String sql = "insert into SIZE (Ma , KichCo) values (?,?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, size.getMa());
                 preparedStatement.setFloat(2, size.getKichCo());
@@ -85,18 +85,19 @@ public class SizeRepository {
         }
     }
 
-    public boolean updateSize(String Ma, Size size) {
+    public boolean updateSize(Size size) {
         try {
             Connection connection = dBConnection.getConnection();
-            String sql = "update CHATLIEU set KichCo = ? where Ma = ?";
+            String sql = "update SIZE set KichCo = ? where Ma = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, size.getKichCo());
             ps.setObject(2, size.getMa());
             
             ps.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(SizeRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 }

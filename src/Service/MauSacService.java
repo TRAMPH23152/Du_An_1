@@ -23,21 +23,13 @@ public class MauSacService implements MauSacImpl{
     }
 
     @Override
-    public String insert(MauSac ms) {
-        if (mauSacRepository.insertMauSac(ms)) {
-            return "Them Thanh Cong";
-        } else {
-            return "Them That Bai";
-        }
+    public boolean insert(MauSac ms) {
+        return mauSacRepository.insertMauSac(ms);
     }
 
     @Override
-    public String update(String Ma,MauSac ms) {
-        if (mauSacRepository.updateMauSac(Ma, ms)) {
-            return "Cap Nhat Thanh Cong";
-        } else {
-            return "Cap Nhat That Bai";
-        }
+    public boolean update(MauSac ms) {
+        return mauSacRepository.updateMauSac( ms);
     }
 
     @Override

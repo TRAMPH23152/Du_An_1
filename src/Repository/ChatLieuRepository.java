@@ -85,18 +85,20 @@ public class ChatLieuRepository {
         }
     }
 
-    public boolean updateChatLieu(String Ma, ChatLieu chatLieu) {
+    public boolean updateChatLieu(ChatLieu chatLieu) {
         try {
             Connection connection = dBConnection.getConnection();
-            String sql = "update CHATLIEU set Ten = ? where Ma = ?";
+            String sql = "update CHATLIEU set Ten = ? , Ma = ? where Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, chatLieu.getTen());
             ps.setObject(2, chatLieu.getMa());
-            
+            ps.setObject(3, chatLieu.getId());
             ps.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(ChatLieuRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
+        
     }
 }

@@ -15,9 +15,9 @@ public interface SizeImpl {
     
     public ArrayList<Size> getAllSizeSevice();
     
-    public String insert(Size sz);
+    public boolean insert(Size sz);
     
-    public String update(String Ma,Size sz);
+    public boolean update(Size sz);
     
     public Size getIDByName(String size);
     

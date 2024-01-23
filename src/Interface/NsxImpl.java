@@ -15,9 +15,9 @@ public interface NsxImpl {
     
     public ArrayList<NhaSanXuat> getAllNsxService();
     
-    public String insert(NhaSanXuat nsx);
+    public boolean insert(NhaSanXuat nsx);
     
-    public String update(String Ma,NhaSanXuat nsx);
+    public boolean update(NhaSanXuat nsx);
     
     public NhaSanXuat getIDByName(String nsx);
     

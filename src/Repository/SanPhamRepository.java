@@ -102,14 +102,16 @@ public class SanPhamRepository {
             Connection connection = dBConnection.getConnection();
             String sql = "update SANPHAM set Ten = ?, Ma = ?  where Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setObject(2, sanPham.getTen());
-            ps.setObject(1, sanPham.getMa());
+            ps.setObject(1, sanPham.getTen());
+            ps.setObject(2, sanPham.getMa());
             
-            
+            ps.setObject(3, sanPham.getIdSanPham());
             ps.execute();
+            return  true;
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
+        
     }
 }

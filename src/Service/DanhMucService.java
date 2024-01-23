@@ -23,20 +23,13 @@ public class DanhMucService implements DanhMucImpl {
     }
 
     @Override
-    public String insert(DanhMuc dm) {
-        if (danhMucRepository.insertDanhMuc(dm)) {
-            return "Them Thanh Cong";
-        } else {
-            return "Them That Bai";
-        }
+    public boolean insert(DanhMuc dm) {
+        return danhMucRepository.insertDanhMuc(dm);
     }
 
     @Override
-    public String update(String Ma, DanhMuc dm) {
-        if (danhMucRepository.updateDanhMuc(Ma, dm)) {
-            return "Cap Nhat Thanh Cong";
-        }
-        return "Cap Nhat That Bai";
+    public boolean update(DanhMuc dm) {
+        return danhMucRepository.updateDanhMuc(dm);
     }
 
     @Override

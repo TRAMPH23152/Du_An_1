@@ -15,9 +15,9 @@ public interface MauSacImpl {
     
     public ArrayList<MauSac> getAllMauSacService();
     
-    public String insert(MauSac ms);
+    public boolean insert(MauSac ms);
     
-    public String update(String Ma,MauSac ms);
+    public boolean update(MauSac ms);
     
     public MauSac getIDByName(String mauSac);
     

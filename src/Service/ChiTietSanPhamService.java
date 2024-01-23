@@ -61,8 +61,8 @@ public class ChiTietSanPhamService {
         }
     }
     
-     public List<ChiTietDep> searchChiTietDep(String keyword) {
-        return chiTietSanPhamRepository.searchChiTietDep(keyword);
+     public List<ChiTietDep> searchChiTietDep(String keyword, Float gia) {
+        return chiTietSanPhamRepository.searchChiTietDep(keyword,gia);
     }
 
     public String getIDDanhMuc(String tenDanhMuc) {

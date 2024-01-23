@@ -85,7 +85,7 @@ public class DeRepository {
         }
     }
 
-    public boolean updateDe(String Ma, De de) {
+    public boolean updateDe(De de) {
         try {
             Connection connection = dBConnection.getConnection();
 
@@ -94,9 +94,10 @@ public class DeRepository {
             ps.setObject(1, de.getTen());
             ps.setObject(2, de.getMa());
             ps.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DeRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 }

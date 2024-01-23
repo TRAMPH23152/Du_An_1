@@ -23,21 +23,13 @@ public class DeService implements DeImpl{
     }
 
     @Override
-    public String insert(De cl) {
-        if (deRepository.insertDe(cl)) {
-            return "Them Thanh Cong";
-        } else {
-            return "Them That Bai";
-        }
+    public boolean insert(De cl) {
+        return deRepository.insertDe(cl);
     }
 
     @Override
-    public String update(String Ma,De cl) {
-        if (deRepository.updateDe(Ma, cl)) {
-            return "Cap Nhat Thanh Cong";
-        } else {
-            return "Cap Nhat That Bai";
-        }
+    public boolean update(De cl) {
+        return deRepository.updateDe( cl);
     }
     
     @Override

@@ -24,21 +24,13 @@ public class SizeService implements SizeImpl{
     }
 
     @Override
-    public String insert(Size sz) {
-        if (sizeRepository.insertSize(sz)) {
-            return "Them Thanh Cong";
-        } else {
-            return "Them That Bai";
-        }
+    public boolean insert(Size sz) {
+        return sizeRepository.insertSize(sz);
     }
 
     @Override
-    public String update(String Ma,Size sz) {
-        if (sizeRepository.updateSize(Ma, sz)) {
-            return "Cap Nhat Thanh Cong";
-        } else {
-            return "Cap Nhat That Bai";
-        }
+    public boolean update(Size sz) {
+        return sizeRepository.updateSize(sz);
     }
 
     @Override
