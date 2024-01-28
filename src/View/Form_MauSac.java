@@ -13,6 +13,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author ADMIN
@@ -24,11 +25,11 @@ public class Form_MauSac extends javax.swing.JFrame {
      */
     MauSacService mauSacService = new MauSacService();
     MauSacModel ms;
-    long count , soTrang , trang = 1;
+    long count, soTrang, trang = 1;
     Connection cn;
     Statement st;
     ResultSet rs;
-    
+
     public Form_MauSac() {
         initComponents();
         setLocationRelativeTo(null);
@@ -44,20 +45,20 @@ public class Form_MauSac extends javax.swing.JFrame {
         lbTrang.setText("1");
     }
 
-    public void titleTable(){
+    public void titleTable() {
         ms = new MauSacModel();
         tblDanhSach.setModel(ms);
         tblDanhSach.setShowHorizontalLines(true);
         tblDanhSach.setShowVerticalLines(true);
     }
-    
-    public void countDB(){
+
+    public void countDB() {
         try {
             String query = "Select count(*) from MAUSAC";
             cn = DBConnection.getConnection();
             st = cn.createStatement();
             rs = st.executeQuery(query);
-            while (rs.next()) {                
+            while (rs.next()) {
                 count = rs.getLong(1);
             }
             rs.close();
@@ -67,8 +68,8 @@ public class Form_MauSac extends javax.swing.JFrame {
             Logger.getLogger(Form_MauSac.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void loadData(long trang){
+
+    public void loadData(long trang) {
         titleTable();
         ms.getDataVector().removeAllElements();
         try {
@@ -76,12 +77,16 @@ public class Form_MauSac extends javax.swing.JFrame {
             cn = DBConnection.getConnection();
             st = cn.createStatement();
             rs = st.executeQuery(query);
-            while (rs.next()) {                
+            while (rs.next()) {
                 Vector v = new Vector();
+                Integer id = rs.getInt(1);
                 String Ma = rs.getString(2);
                 String mauSac = rs.getString(3);
+                Integer trangThai = rs.getInt(4);
+                v.add(id);
                 v.add(Ma);
                 v.add(mauSac);
+                v.add(trangThai);
                 ms.addRow(v);
             }
             rs.close();
@@ -91,6 +96,7 @@ public class Form_MauSac extends javax.swing.JFrame {
             Logger.getLogger(Form_MauSac.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,6 +106,7 @@ public class Form_MauSac extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -110,19 +117,24 @@ public class Form_MauSac extends javax.swing.JFrame {
         tblDanhSach = new javax.swing.JTable();
         btLonMax = new javax.swing.JButton();
         btNhoMax = new javax.swing.JButton();
-        txtMaMauSac = new javax.swing.JTextField();
         BtNho = new javax.swing.JButton();
         btLon = new javax.swing.JButton();
         lbTrang = new javax.swing.JLabel();
         lbSoTrang = new javax.swing.JLabel();
         lbClose = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        txtMaMauSac = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        rdoCon = new javax.swing.JRadioButton();
+        rdoHet = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 204));
 
-        jLabel17.setText("Mã Màu Sắc");
+        jLabel17.setText("Id Màu Sắc");
 
         jLabel18.setText("Tên Màu Sắc");
 
@@ -207,6 +219,20 @@ public class Form_MauSac extends javax.swing.JFrame {
             }
         });
 
+        jLabel19.setText("Mã Màu Sắc");
+
+        lblId.setText("_____");
+
+        txtMaMauSac.setText("__________");
+
+        jLabel20.setText("Trạng Thái");
+
+        buttonGroup1.add(rdoCon);
+        rdoCon.setText("Còn ");
+
+        buttonGroup1.add(rdoHet);
+        rdoHet.setText("Hết");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -218,26 +244,33 @@ public class Form_MauSac extends javax.swing.JFrame {
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
                         .addComponent(btnCapNhat)
-                        .addGap(45, 45, 45)
+                        .addGap(40, 40, 40)
                         .addComponent(btnReset)
-                        .addGap(53, 53, 53))
+                        .addGap(64, 64, 64))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)
                             .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(lbClose)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel20))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTenMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(lbClose)
-                                        .addGap(136, 136, 136))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel17)
-                                            .addComponent(jLabel18))
-                                        .addGap(18, 18, 18)))
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtMaMauSac, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                                    .addComponent(txtTenMauSac))
+                                        .addComponent(lblId)
+                                        .addGap(74, 74, 74)
+                                        .addComponent(jLabel19)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtMaMauSac))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(rdoCon)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rdoHet)))
                                 .addGap(122, 122, 122)))))
                 .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -253,31 +286,38 @@ public class Form_MauSac extends javax.swing.JFrame {
                 .addComponent(btLonMax)
                 .addGap(18, 18, 18)
                 .addComponent(lbSoTrang)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(42, 42, 42)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtMaMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17)))
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel19)
+                            .addComponent(lblId)
+                            .addComponent(txtMaMauSac)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lbClose)))
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(rdoCon)
+                    .addComponent(rdoHet))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNhoMax)
@@ -286,7 +326,7 @@ public class Form_MauSac extends javax.swing.JFrame {
                     .addComponent(BtNho)
                     .addComponent(lbTrang)
                     .addComponent(lbSoTrang))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -340,54 +380,80 @@ public class Form_MauSac extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCloseMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtMaMauSac.getText().trim().equals("") || txtTenMauSac.getText().trim().equals("")) {
+        if (txtTenMauSac.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Moi ban nhap day du thong tin.");
             return;
         }
         try {
-            String ma = txtMaMauSac.getText();
-            String ten = txtTenMauSac.getText();
-            MauSac mauSac = new MauSac(0, ma, ten, WIDTH);
+            MauSac mauSac = new MauSac();
+            mauSac.setMa(String.valueOf(txtMaMauSac.getText()));
+            mauSac.setMauSac(String.valueOf(txtTenMauSac.getText()));
+            if (rdoCon.isSelected()) {
+                mauSac.setTrangThai(1);
+            } else {
+                mauSac.setTrangThai(0);
+            }
+            mauSac.setId(Integer.parseInt(lblId.getText()));
             mauSacService.insert(mauSac);
             loadData(trang);
+            clearFrom();
             JOptionPane.showMessageDialog(this, "Add thanh cong.");
+            Form_ChiTiet form_ChiTiet = new Form_ChiTiet();
+            form_ChiTiet.fillCboChiTiet();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Add that bai.");
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        if (txtMaMauSac.getText().trim().equals("") || txtTenMauSac.getText().trim().equals("")) {
+        if (txtTenMauSac.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Moi ban chon ban ghi.");
             return;
         }
-        try {
-            String ma = txtMaMauSac.getText();
-            String ten = txtTenMauSac.getText();
-            MauSac mauSac = new MauSac(0, ma, ten, WIDTH);
-            mauSacService.update(mauSac);
-            loadData(trang);
-            JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Cap nhat that bai.");
+        MauSac mauSac = new MauSac();
+        mauSac.setMa(String.valueOf(txtMaMauSac.getText()));
+        mauSac.setMauSac(String.valueOf(txtTenMauSac.getText()));
+        if (rdoCon.isSelected()) {
+            mauSac.setTrangThai(1);
+        } else {
+            mauSac.setTrangThai(0);
         }
+        mauSac.setId(Integer.parseInt(lblId.getText()));
+        JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
+        if (!mauSacService.update(mauSac)) {
+            JOptionPane.showMessageDialog(this, "Cap nhat that bai.");
+            return;
+        }
+        loadData(trang);
+        clearFrom();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-         txtMaMauSac.setText("");
-        txtTenMauSac.setText("");
+        clearFrom();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void tblDanhSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachMouseClicked
         int index = tblDanhSach.getSelectedRow();
-        
-        String ma = (String) tblDanhSach.getValueAt(index, 0);
-        String ten = (String) tblDanhSach.getValueAt(index, 1);
-        
-        txtMaMauSac.setText(ma);
-        txtTenMauSac.setText(ten);
+        if (index < 0) {
+            return;
+        }
+        lblId.setText(tblDanhSach.getValueAt(index, 0).toString());
+        txtMaMauSac.setText(tblDanhSach.getValueAt(index, 1).toString());
+        txtTenMauSac.setText(tblDanhSach.getValueAt(index, 2).toString());
+        if (tblDanhSach.getValueAt(index, 3).toString().equals("1")) {
+            rdoCon.setSelected(true);
+        } else {
+            rdoHet.setSelected(true);
+        }
+        System.out.println(tblDanhSach.getValueAt(index, 3).toString());
     }//GEN-LAST:event_tblDanhSachMouseClicked
 
+    public void clearFrom() {
+        lblId.setText("");
+        txtMaMauSac.setText("");
+        txtTenMauSac.setText("");
+        rdoCon.setSelected(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -431,15 +497,21 @@ public class Form_MauSac extends javax.swing.JFrame {
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnThem;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbClose;
     private javax.swing.JLabel lbSoTrang;
     private javax.swing.JLabel lbTrang;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JRadioButton rdoCon;
+    private javax.swing.JRadioButton rdoHet;
     private javax.swing.JTable tblDanhSach;
-    private javax.swing.JTextField txtMaMauSac;
+    private javax.swing.JLabel txtMaMauSac;
     private javax.swing.JTextField txtTenMauSac;
     // End of variables declaration//GEN-END:variables
 }

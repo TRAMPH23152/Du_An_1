@@ -11,45 +11,46 @@ import DomainModels.MauSac;
 import DomainModels.NhaSanXuat;
 import DomainModels.SanPham;
 import DomainModels.Size;
+import java.math.BigDecimal;
 
 /**
  *
  * @author ADMIN
  */
 public class ChiTietSPModel {
-    
+
     private Integer id;
-    
+
     private SanPham tenSanPham;
-    
+
     private DanhMuc tenDanhMuc;
-    
+
     private Size tenSize;
-    
+
     private MauSac tenMauSac;
-    
+
     private ChatLieu tenChatLieu;
-    
+
     private NhaSanXuat tenNhaSX;
-    
+
     private De tenDe;
-    
+
     private Integer soLuong;
-    
-    private Float giaNhap;
-    
-    private Float giaBan;
-    
+
+    private BigDecimal giaNhap;
+
+    private BigDecimal giaBan;
+
     private String moTa;
-    
+
     private String imageUrl;
-    
+
     private Integer trangThai;
 
     public ChiTietSPModel() {
     }
 
-    public ChiTietSPModel(Integer id, SanPham tenSanPham, DanhMuc tenDanhMuc, Size tenSize, MauSac tenMauSac, ChatLieu tenChatLieu, NhaSanXuat tenNhaSX, De tenDe, Integer soLuong, Float giaBan, String moTa, Integer trangThai) {
+    public ChiTietSPModel(Integer id, SanPham tenSanPham, DanhMuc tenDanhMuc, Size tenSize, MauSac tenMauSac, ChatLieu tenChatLieu, NhaSanXuat tenNhaSX, De tenDe, Integer soLuong, BigDecimal giaBan, String moTa, Integer trangThai) {
         this.id = id;
         this.tenSanPham = tenSanPham;
         this.tenDanhMuc = tenDanhMuc;
@@ -63,10 +64,8 @@ public class ChiTietSPModel {
         this.moTa = moTa;
         this.trangThai = trangThai;
     }
-    
-    
 
-    public ChiTietSPModel(Integer id, SanPham tenSanPham, DanhMuc tenDanhMuc, Size tenSize, MauSac tenMauSac, ChatLieu tenChatLieu, NhaSanXuat tenNhaSX, De tenDe, Integer soLuong, Float giaNhap, Float giaBan, String moTa, String imageUrl, Integer trangThai) {
+    public ChiTietSPModel(Integer id, SanPham tenSanPham, DanhMuc tenDanhMuc, Size tenSize, MauSac tenMauSac, ChatLieu tenChatLieu, NhaSanXuat tenNhaSX, De tenDe, Integer soLuong, BigDecimal giaNhap, BigDecimal giaBan, String moTa, String imageUrl, Integer trangThai) {
         this.id = id;
         this.tenSanPham = tenSanPham;
         this.tenDanhMuc = tenDanhMuc;
@@ -82,8 +81,6 @@ public class ChiTietSPModel {
         this.imageUrl = imageUrl;
         this.trangThai = trangThai;
     }
-
-
 
     public Integer getId() {
         return id;
@@ -157,20 +154,25 @@ public class ChiTietSPModel {
         this.soLuong = soLuong;
     }
 
-    public Float getGiaNhap() {
+    public BigDecimal getGiaNhap() {
         return giaNhap;
     }
 
-    public void setGiaNhap(Float giaNhap) {
+    public void setGiaNhap(BigDecimal giaNhap) {
         this.giaNhap = giaNhap;
     }
 
-    public Float getGiaBan() {
+    public BigDecimal getGiaBan() {
         return giaBan;
     }
 
-    public void setGiaBan(Float giaBan) {
-        this.giaBan = giaBan;
+    public void setGiaBan(BigDecimal giaBan) {
+        if (giaBan != null && giaBan.compareTo(BigDecimal.ZERO) >= 0) {
+            this.giaBan = giaBan;
+        } else {
+            System.out.println("Gia ban khong duoc la so am.");
+            throw new IllegalArgumentException("Gia ban khong duoc la so am.");
+        }
     }
 
     public String getMoTa() {
@@ -197,6 +199,4 @@ public class ChiTietSPModel {
         this.trangThai = trangThai;
     }
 
-    
-    
 }

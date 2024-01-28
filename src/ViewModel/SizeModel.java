@@ -10,12 +10,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class SizeModel extends DefaultTableModel{
-    
-    public SizeModel(){
+public class SizeModel extends DefaultTableModel {
+
+    public SizeModel() {
         super();
+        this.addColumn("Id Size");
         this.addColumn("Mã Size");
         this.addColumn("Kích Thước");
+        this.addColumn("Trạng Thái");
     }
 
     @Override
@@ -30,12 +32,13 @@ public class SizeModel extends DefaultTableModel{
                 return String.class;
             case 1:
                 return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
             default:
                 return String.class;
         }
     }
 
-    
-    
-    
 }

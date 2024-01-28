@@ -12,6 +12,7 @@ import DomainModels.MauSac;
 import DomainModels.NhaSanXuat;
 import DomainModels.SanPham;
 import DomainModels.Size;
+import java.math.BigDecimal;
 
 /**
  *
@@ -37,9 +38,9 @@ public class ChiTietDep {
 
     private Integer SoLuong;
 
-    private Float GiaNhap;
+    private BigDecimal GiaNhap;
 
-    private Float GiaBan;
+    private BigDecimal GiaBan;
 
     private String MoTa;
 
@@ -50,7 +51,7 @@ public class ChiTietDep {
     public ChiTietDep() {
     }
 
-    public ChiTietDep(Integer Id, SanPham IdSanPham, DanhMuc IdDanhMuc, Size IdSize, MauSac IdMauSac, ChatLieu IdChatLieu, NhaSanXuat IdNSX, De IdDe, Integer SoLuong, Float GiaBan, String MoTa, Integer TrangThai) {
+    public ChiTietDep(Integer Id, SanPham IdSanPham, DanhMuc IdDanhMuc, Size IdSize, MauSac IdMauSac, ChatLieu IdChatLieu, NhaSanXuat IdNSX, De IdDe, Integer SoLuong, BigDecimal GiaBan, String MoTa, Integer TrangThai) {
         this.Id = Id;
         this.IdSanPham = IdSanPham;
         this.IdDanhMuc = IdDanhMuc;
@@ -67,7 +68,7 @@ public class ChiTietDep {
 
     
     
-    public ChiTietDep(Integer Id, SanPham IdSanPham, DanhMuc IdDanhMuc, Size IdSize, MauSac IdMauSac, ChatLieu IdChatLieu, NhaSanXuat IdNSX, De IdDe, Integer SoLuong, Float GiaNhap, Float GiaBan, String MoTa, String HinhAnh, Integer TrangThai) {
+    public ChiTietDep(Integer Id, SanPham IdSanPham, DanhMuc IdDanhMuc, Size IdSize, MauSac IdMauSac, ChatLieu IdChatLieu, NhaSanXuat IdNSX, De IdDe, Integer SoLuong, BigDecimal GiaNhap, BigDecimal GiaBan, String MoTa, String HinhAnh, Integer TrangThai) {
         this.Id = Id;
         this.IdSanPham = IdSanPham;
         this.IdDanhMuc = IdDanhMuc;
@@ -156,19 +157,19 @@ public class ChiTietDep {
         this.SoLuong = SoLuong;
     }
 
-    public Float getGiaNhap() {
+    public BigDecimal getGiaNhap() {
         return GiaNhap;
     }
 
-    public void setGiaNhap(Float GiaNhap) {
+    public void setGiaNhap(BigDecimal GiaNhap) {
         this.GiaNhap = GiaNhap;
     }
 
-    public Float getGiaBan() {
+    public BigDecimal getGiaBan() {
         return GiaBan;
     }
 
-    public void setGiaBan(Float GiaBan) {
+    public void setGiaBan(BigDecimal GiaBan) {
         this.GiaBan = GiaBan;
     }
 

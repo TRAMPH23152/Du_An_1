@@ -4,6 +4,8 @@
  */
 package DomainModels;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author ADMIN
@@ -14,7 +16,7 @@ public class Size {
     
     private String ma;
     
-    private Float kichCo;
+    private BigDecimal kichCo;
     
     private Integer trangThai;
 
@@ -22,7 +24,7 @@ public class Size {
     }
 
     
-    public Size(Integer idSize, String ma, Float kichCo, Integer trangThai) {
+    public Size(Integer idSize, String ma, BigDecimal kichCo, Integer trangThai) {
         this.idSize = idSize;
         this.ma = ma;
         this.kichCo = kichCo;
@@ -45,11 +47,11 @@ public class Size {
         this.ma = ma;
     }
 
-    public Float getKichCo() {
+    public BigDecimal getKichCo() {
         return kichCo;
     }
 
-    public void setKichCo(Float kichCo) {
+    public void setKichCo(BigDecimal kichCo) {
         this.kichCo = kichCo;
     }
 

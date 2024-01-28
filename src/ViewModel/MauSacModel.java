@@ -10,12 +10,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class MauSacModel extends DefaultTableModel{
-    
-    public MauSacModel(){
+public class MauSacModel extends DefaultTableModel {
+
+    public MauSacModel() {
         super();
+        this.addColumn("Id Màu Sắc");
         this.addColumn("Mã Màu Sắc");
         this.addColumn("Màu Sắc");
+        this.addColumn("Trạng Thái");
     }
 
     @Override
@@ -30,10 +32,13 @@ public class MauSacModel extends DefaultTableModel{
                 return String.class;
             case 1:
                 return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
             default:
                 return String.class;
         }
     }
-    
-    
+
 }

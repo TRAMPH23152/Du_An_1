@@ -23,7 +23,7 @@ public class SanPhamService implements SanPhamImpl{
     }
 
     @Override
-    public boolean insert(SanPham sp) {
+    public Integer insert(SanPham sp) {
         return sanPhamRepository.insertSanPham(sp);
     }
 

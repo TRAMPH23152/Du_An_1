@@ -73,11 +73,11 @@ public class DanhMucRepository {
     
     public boolean insertDanhMuc(DanhMuc danhMuc) {
         try (Connection connection = dBConnection.getConnection()) {
-            String sql = "insert into DANHMUC (Ma , Ten) values (?,?)";
+            String sql = "insert into DANHMUC (Ma , Ten,TrangThai) values (?,?,?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, danhMuc.getMa());
+                preparedStatement.setString(1, generateUniqueCode());
                 preparedStatement.setString(2, danhMuc.getTen());
-
+                preparedStatement.setInt(3, danhMuc.getTrangThai());
                 int rowsAffected = preparedStatement.executeUpdate();
                 return rowsAffected > 0;
             }
@@ -87,15 +87,21 @@ public class DanhMucRepository {
         }
     }
 
+    private String generateUniqueCode() {
+        String randomCode = String.valueOf((int) (Math.random() * 10000));
+        return "DM" + String.format("%04d", Integer.parseInt(randomCode));
+    }
+    
     public boolean updateDanhMuc(DanhMuc danhMuc) {
         try {
             Connection connection = dBConnection.getConnection();
 
-            String sql = "update DANHMUC set Ten = ? , Ma = ? where Id = ?";
+            String sql = "update DANHMUC set Ten = ? , Ma = ?, TrangThai = ? where Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setObject(2, danhMuc.getTen());
-            ps.setObject(1, danhMuc.getMa());
-            ps.setObject(3, danhMuc.getIdDanhMuc());
+            ps.setObject(1, danhMuc.getTen());
+            ps.setObject(2, danhMuc.getMa());
+            ps.setObject(3, danhMuc.getTrangThai());
+            ps.setObject(4, danhMuc.getIdDanhMuc());
             ps.execute();
             return true;
         } catch (SQLException ex) {

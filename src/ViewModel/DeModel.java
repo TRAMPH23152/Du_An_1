@@ -10,12 +10,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class DeModel extends DefaultTableModel{
-    
-    public DeModel(){
+public class DeModel extends DefaultTableModel {
+
+    public DeModel() {
         super();
+        this.addColumn("Id Đế");
         this.addColumn("Mã Đế");
         this.addColumn("Độ Cao");
+        this.addColumn("Trạng Thái");
     }
 
     @Override
@@ -30,10 +32,13 @@ public class DeModel extends DefaultTableModel{
                 return String.class;
             case 1:
                 return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
             default:
                 return String.class;
         }
     }
-    
-    
+
 }

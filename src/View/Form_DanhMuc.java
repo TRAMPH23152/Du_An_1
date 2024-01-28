@@ -13,6 +13,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author ADMIN
@@ -27,7 +28,7 @@ public class Form_DanhMuc extends javax.swing.JFrame {
     Connection cn;
     Statement st;
     ResultSet rs;
-    long count , soTrang, trang = 1;
+    long count, soTrang, trang = 1;
     
     public Form_DanhMuc() {
         initComponents();
@@ -43,21 +44,21 @@ public class Form_DanhMuc extends javax.swing.JFrame {
         lbSoTrang.setText("1/" + soTrang);
         lbTrang.setText("1");
     }
-
-    public void titleTable(){
+    
+    public void titleTable() {
         dm = new DanhMucModel();
         tblDanhSach.setModel(dm);
         tblDanhSach.setShowHorizontalLines(true);
         tblDanhSach.setShowVerticalLines(true);
     }
     
-    public void countDB(){
+    public void countDB() {
         try {
             String query = "Select count(*) from DANHMUC";
             cn = DBConnection.getConnection();
             st = cn.createStatement();
             rs = st.executeQuery(query);
-            while (rs.next()) {                
+            while (rs.next()) {
                 count = rs.getLong(1);
             }
             
@@ -69,7 +70,7 @@ public class Form_DanhMuc extends javax.swing.JFrame {
         }
     }
     
-    public void loadData(long trang){
+    public void loadData(long trang) {
         titleTable();
         dm.getDataVector().removeAllElements();
         try {
@@ -77,12 +78,16 @@ public class Form_DanhMuc extends javax.swing.JFrame {
             cn = DBConnection.getConnection();
             st = cn.createStatement();
             rs = st.executeQuery(query);
-            while (rs.next()) {                
+            while (rs.next()) {
                 Vector v = new Vector();
+                Integer id = rs.getInt(1);
                 String Ma = rs.getString(2);
                 String Ten = rs.getString(3);
+                Integer trangThai = rs.getInt(4);
+                v.add(id);
                 v.add(Ma);
                 v.add(Ten);
+                v.add(trangThai);
                 dm.addRow(v);
             }
             rs.close();
@@ -92,6 +97,7 @@ public class Form_DanhMuc extends javax.swing.JFrame {
             Logger.getLogger(Form_DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +107,7 @@ public class Form_DanhMuc extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -111,13 +118,18 @@ public class Form_DanhMuc extends javax.swing.JFrame {
         tblDanhSach = new javax.swing.JTable();
         btLonMax = new javax.swing.JButton();
         btNhoMax = new javax.swing.JButton();
-        txtMaDanhMuc = new javax.swing.JTextField();
         btNho = new javax.swing.JButton();
         btLon = new javax.swing.JButton();
         lbTrang = new javax.swing.JLabel();
         lbSoTrang = new javax.swing.JLabel();
         lbClose = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        txtMaDanhMuc = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        rdoCon = new javax.swing.JRadioButton();
+        rdoHet = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,6 +220,20 @@ public class Form_DanhMuc extends javax.swing.JFrame {
             }
         });
 
+        jLabel19.setText("Id Danh Mục");
+
+        lblId.setText("_____");
+
+        txtMaDanhMuc.setText("___________");
+
+        jLabel20.setText("Trạng Thái");
+
+        buttonGroup1.add(rdoCon);
+        rdoCon.setText("Còn ");
+
+        buttonGroup1.add(rdoHet);
+        rdoHet.setText("Hết");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -230,16 +256,26 @@ public class Form_DanhMuc extends javax.swing.JFrame {
                         .addGap(87, 87, 87))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel17))
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel18))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtMaDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rdoCon)
+                                .addGap(18, 18, 18)
+                                .addComponent(rdoHet)
                                 .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtTenDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(88, 88, 88))))))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                    .addComponent(txtTenDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(88, 88, 88))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(lblId)
+                                    .addGap(69, 69, 69)
+                                    .addComponent(jLabel17)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtMaDanhMuc)
+                                    .addContainerGap()))))))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -252,32 +288,38 @@ public class Form_DanhMuc extends javax.swing.JFrame {
                                 .addComponent(lbClose))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(96, 96, 96)
-                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(btnCapNhat)
-                                .addGap(45, 45, 45)
-                                .addComponent(btnReset)))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(btnCapNhat)
+                                        .addGap(45, 45, 45)
+                                        .addComponent(btnReset)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap(35, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtMaDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))
-                        .addGap(34, 34, 34))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbClose)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(lbClose)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel19)
+                    .addComponent(lblId)
+                    .addComponent(txtMaDanhMuc))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(rdoCon)
+                    .addComponent(rdoHet))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -346,54 +388,80 @@ public class Form_DanhMuc extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCloseMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtMaDanhMuc.getText().trim().equals("") || txtTenDanhMuc.getText().trim().equals("")) {
+        if (txtTenDanhMuc.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Moi ban nhap day du thong tin.");
             return;
         }
         try {
-            String ma = txtMaDanhMuc.getText();
-            String ten = txtTenDanhMuc.getText();
-            DanhMuc danhMuc = new DanhMuc(0, ma, ten);
+            DanhMuc danhMuc = new DanhMuc();
+            danhMuc.setMa(String.valueOf(txtMaDanhMuc.getText()));
+            danhMuc.setTen(String.valueOf(txtTenDanhMuc.getText()));
+            danhMuc.setIdDanhMuc(Integer.parseInt(lblId.getText()));
+            if (rdoCon.isSelected()) {
+                danhMuc.setTrangThai(1);
+            } else {
+                danhMuc.setTrangThai(0);
+            }
             danhMucService.insert(danhMuc);
             loadData(trang);
+            clearFrom();
             JOptionPane.showMessageDialog(this, "Add thanh cong.");
+            Form_ChiTiet form_ChiTiet = new Form_ChiTiet();
+            form_ChiTiet.fillCboChiTiet();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Add that bai.");
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        if (txtMaDanhMuc.getText().trim().equals("") || txtTenDanhMuc.getText().trim().equals("")) {
+        if (txtTenDanhMuc.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Moi ban chon ban ghi.");
             return;
         }
-        try {
-            String ma = txtMaDanhMuc.getText();
-            String ten = txtTenDanhMuc.getText();
-            DanhMuc danhMuc = new DanhMuc(0, ma, ten);
-            danhMucService.update(danhMuc);
-            loadData(trang);
-            JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Cap nhat that bai.");
+        DanhMuc danhMuc = new DanhMuc();
+        danhMuc.setMa(String.valueOf(txtMaDanhMuc.getText()));
+        danhMuc.setTen(String.valueOf(txtTenDanhMuc.getText()));
+        if (rdoCon.isSelected()) {
+            danhMuc.setTrangThai(1);
+        } else {
+            danhMuc.setTrangThai(0);
         }
+        danhMuc.setIdDanhMuc(Integer.parseInt(lblId.getText()));
+        JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
+        if (!danhMucService.update(danhMuc)) {
+            JOptionPane.showMessageDialog(this, "Cap nhat that bai.");
+            return;
+        }
+        loadData(trang);
+        clearFrom();
+
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        txtMaDanhMuc.setText("");
-        txtTenDanhMuc.setText("");
+        clearFrom();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void tblDanhSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachMouseClicked
         int index = tblDanhSach.getSelectedRow();
-        
-        String ma = (String) tblDanhSach.getValueAt(index, 0);
-        String ten = (String) tblDanhSach.getValueAt(index, 1);
-        
-        txtMaDanhMuc.setText(ma);
-        txtTenDanhMuc.setText(ten);
+        if (index < 0) {
+            return;
+        }
+        lblId.setText(tblDanhSach.getValueAt(index, 0).toString());
+        txtMaDanhMuc.setText(tblDanhSach.getValueAt(index, 1).toString());
+        txtTenDanhMuc.setText(tblDanhSach.getValueAt(index, 2).toString());
+        if (tblDanhSach.getValueAt(index, 3).toString().equals("1")) {
+            rdoCon.setSelected(true);
+        } else {
+            rdoHet.setSelected(true);
+        }
+        System.out.println(tblDanhSach.getValueAt(index, 3).toString());
     }//GEN-LAST:event_tblDanhSachMouseClicked
-
+    public void clearFrom() {
+        lblId.setText("");
+        txtMaDanhMuc.setText("");
+        txtTenDanhMuc.setText("");
+        rdoCon.setSelected(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -437,15 +505,21 @@ public class Form_DanhMuc extends javax.swing.JFrame {
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnThem;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbClose;
     private javax.swing.JLabel lbSoTrang;
     private javax.swing.JLabel lbTrang;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JRadioButton rdoCon;
+    private javax.swing.JRadioButton rdoHet;
     private javax.swing.JTable tblDanhSach;
-    private javax.swing.JTextField txtMaDanhMuc;
+    private javax.swing.JLabel txtMaDanhMuc;
     private javax.swing.JTextField txtTenDanhMuc;
     // End of variables declaration//GEN-END:variables
 }

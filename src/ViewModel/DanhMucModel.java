@@ -10,12 +10,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class DanhMucModel extends DefaultTableModel{
-    
-    public  DanhMucModel(){
+public class DanhMucModel extends DefaultTableModel {
+
+    public DanhMucModel() {
         super();
+        this.addColumn("Id Danh Mục");
         this.addColumn("Mã Danh Mục");
         this.addColumn("Tên Danh Mục");
+        this.addColumn("Trạng Thái");
     }
 
     @Override
@@ -30,11 +32,13 @@ public class DanhMucModel extends DefaultTableModel{
                 return String.class;
             case 1:
                 return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
             default:
                 return String.class;
         }
     }
 
-    
-    
 }

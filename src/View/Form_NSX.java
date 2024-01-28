@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.sql.*;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author ADMIN
@@ -24,11 +25,11 @@ public class Form_NSX extends javax.swing.JFrame {
      */
     NsxService nsxService = new NsxService();
     NsxModel nm;
-    long count , soTrang , trang = 1;
+    long count, soTrang, trang = 1;
     Connection cn;
     Statement st;
     ResultSet rs;
-    
+
     public Form_NSX() {
         initComponents();
         setLocationRelativeTo(null);
@@ -44,20 +45,20 @@ public class Form_NSX extends javax.swing.JFrame {
         lbTrang.setText("1");
     }
 
-    public void titleTable(){
+    public void titleTable() {
         nm = new NsxModel();
         tblDanhSach.setModel(nm);
         tblDanhSach.setShowHorizontalLines(true);
         tblDanhSach.setShowVerticalLines(true);
     }
-    
-    public void countDB(){
+
+    public void countDB() {
         try {
             String query = "Select count(*) from NSX";
             cn = DBConnection.getConnection();
             st = cn.createStatement();
             rs = st.executeQuery(query);
-            while (rs.next()) {                
+            while (rs.next()) {
                 count = rs.getLong(1);
             }
             rs.close();
@@ -67,8 +68,8 @@ public class Form_NSX extends javax.swing.JFrame {
             Logger.getLogger(Form_NSX.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void loadData(long trang){
+
+    public void loadData(long trang) {
         titleTable();
         nm.getDataVector().removeAllElements();
         try {
@@ -76,15 +77,19 @@ public class Form_NSX extends javax.swing.JFrame {
             cn = DBConnection.getConnection();
             st = cn.createStatement();
             rs = st.executeQuery(query);
-            while (rs.next()) {                
+            while (rs.next()) {
                 Vector v = new Vector();
+                Integer id = rs.getInt(1);
                 String Ma = rs.getString(2);
                 String ten = rs.getString(3);
+                Integer trangThai = rs.getInt(4);
+                v.add(id);
                 v.add(Ma);
                 v.add(ten);
+                v.add(trangThai);
                 nm.addRow(v);
             }
-            
+
             rs.close();
             st.close();
             cn.close();
@@ -92,6 +97,7 @@ public class Form_NSX extends javax.swing.JFrame {
             Logger.getLogger(Form_NSX.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +107,7 @@ public class Form_NSX extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -111,13 +118,18 @@ public class Form_NSX extends javax.swing.JFrame {
         tblDanhSach = new javax.swing.JTable();
         btLonMax = new javax.swing.JButton();
         btNhoMax = new javax.swing.JButton();
-        txtMaNSX = new javax.swing.JTextField();
         btNho = new javax.swing.JButton();
         btLon = new javax.swing.JButton();
         lbTrang = new javax.swing.JLabel();
         lbSoTrang = new javax.swing.JLabel();
         lbClose = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        txtMaNSX = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        rdoCon = new javax.swing.JRadioButton();
+        rdoHet = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,77 +220,108 @@ public class Form_NSX extends javax.swing.JFrame {
             }
         });
 
+        jLabel19.setText("Mã NSX");
+
+        lblId.setText("_____");
+
+        txtMaNSX.setText("___________");
+
+        jLabel20.setText("Trạng Thái");
+
+        buttonGroup1.add(rdoCon);
+        rdoCon.setText("Còn ");
+
+        buttonGroup1.add(rdoHet);
+        rdoHet.setText("Hết");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnCapNhat)
-                        .addGap(49, 49, 49)
-                        .addComponent(btnReset)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGap(86, 86, 86)
-                                        .addComponent(jLabel18)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtTenNsx, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                         .addComponent(lbClose)
                                         .addGap(48, 48, 48)
                                         .addComponent(jLabel17)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtMaNSX, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(btNhoMax)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btNho, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbTrang)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btLon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btLonMax)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbSoTrang)
-                .addContainerGap(75, Short.MAX_VALUE))
+                                        .addComponent(lblId)
+                                        .addGap(102, 102, 102)
+                                        .addComponent(jLabel19)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtMaNSX))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(86, 86, 86)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addComponent(jLabel20)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rdoCon)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rdoHet))
+                                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addComponent(jLabel18)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtTenNsx, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(btNhoMax)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btNho, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbTrang)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btLon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btLonMax)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbSoTrang))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(btnCapNhat)
+                                .addGap(49, 49, 49)
+                                .addComponent(btnReset)))
+                        .addGap(0, 69, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(txtMaNSX, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbClose, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel17)))
-                .addGap(36, 36, 36)
+                .addContainerGap()
+                .addComponent(lbClose, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel19)
+                    .addComponent(lblId)
+                    .addComponent(txtMaNSX))
+                .addGap(25, 25, 25)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtTenNsx, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(rdoCon)
+                    .addComponent(rdoHet))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNhoMax)
@@ -341,18 +384,21 @@ public class Form_NSX extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCloseMouseClicked
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        txtMaNSX.setText("");
-        txtTenNsx.setText("");
+        clearFrom();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void tblDanhSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachMouseClicked
         int index = tblDanhSach.getSelectedRow();
-        
-        String ma = (String) tblDanhSach.getValueAt(index, 0);
-        String ten = (String) tblDanhSach.getValueAt(index, 1);
-        
-        txtMaNSX.setText(ma);
-        txtTenNsx.setText(ten);
+
+        lblId.setText(tblDanhSach.getValueAt(index, 0).toString());
+        txtMaNSX.setText(tblDanhSach.getValueAt(index, 1).toString());
+        txtTenNsx.setText(tblDanhSach.getValueAt(index, 2).toString());
+        if (tblDanhSach.getValueAt(index, 3).toString().equals("1")) {
+            rdoCon.setSelected(true);
+        } else {
+            rdoHet.setSelected(true);
+        }
+        System.out.println(tblDanhSach.getValueAt(index, 3).toString());
     }//GEN-LAST:event_tblDanhSachMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -361,12 +407,21 @@ public class Form_NSX extends javax.swing.JFrame {
             return;
         }
         try {
-            String ma = txtMaNSX.getText();
-            String ten = txtTenNsx.getText();
-            NhaSanXuat danhMuc = new NhaSanXuat(0, ma, ten, WIDTH);
-            nsxService.insert(danhMuc);
+            NhaSanXuat nsx = new NhaSanXuat();
+            nsx.setMa(String.valueOf(txtMaNSX.getText()));
+            nsx.setTen(String.valueOf(txtTenNsx.getText()));
+            if (rdoCon.isSelected()) {
+                nsx.setTrangThai(1);
+            } else {
+                nsx.setTrangThai(0);
+            }
+            nsx.setId(Integer.parseInt(lblId.getText()));
+            nsxService.insert(nsx);
             loadData(trang);
+            clearFrom();
             JOptionPane.showMessageDialog(this, "Add thanh cong.");
+            Form_ChiTiet form_ChiTiet = new Form_ChiTiet();
+            form_ChiTiet.fillCboChiTiet();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Add that bai.");
         }
@@ -377,18 +432,30 @@ public class Form_NSX extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Moi ban chon ban ghi.");
             return;
         }
-        try {
-            String ma = txtMaNSX.getText();
-            String ten = txtTenNsx.getText();
-            NhaSanXuat danhMuc = new NhaSanXuat(0, ma, ten, WIDTH);
-            nsxService.update(danhMuc);
-            loadData(trang);
-            JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Cap nhat that bai.");
+        NhaSanXuat nsx = new NhaSanXuat();
+        nsx.setMa(String.valueOf(txtMaNSX.getText()));
+        nsx.setTen(String.valueOf(txtTenNsx.getText()));
+        if (rdoCon.isSelected()) {
+            nsx.setTrangThai(1);
+        } else {
+            nsx.setTrangThai(0);
         }
+        nsx.setId(Integer.parseInt(lblId.getText()));
+        JOptionPane.showMessageDialog(this, "Cap nhat thanh cong.");
+        if (!nsxService.update(nsx)) {
+            JOptionPane.showMessageDialog(this, "Cap nhat that bai.");
+            return;
+        }
+        loadData(trang);
+        clearFrom();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
+    public void clearFrom() {
+        lblId.setText("");
+        txtMaNSX.setText("");
+        txtTenNsx.setText("");
+        rdoCon.setSelected(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -432,15 +499,21 @@ public class Form_NSX extends javax.swing.JFrame {
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnThem;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbClose;
     private javax.swing.JLabel lbSoTrang;
     private javax.swing.JLabel lbTrang;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JRadioButton rdoCon;
+    private javax.swing.JRadioButton rdoHet;
     private javax.swing.JTable tblDanhSach;
-    private javax.swing.JTextField txtMaNSX;
+    private javax.swing.JLabel txtMaNSX;
     private javax.swing.JTextField txtTenNsx;
     // End of variables declaration//GEN-END:variables
 }

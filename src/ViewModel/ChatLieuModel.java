@@ -10,17 +10,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class ChatLieuModel extends DefaultTableModel{
-    
-    public ChatLieuModel(){
+public class ChatLieuModel extends DefaultTableModel {
+
+    public ChatLieuModel() {
         super();
+        this.addColumn("Id Chất Liệu");
         this.addColumn("Mã Chất Liệu");
         this.addColumn("Tên Chất Liệu");
+        this.addColumn("Trạng Thái");
     }
 
     @Override
     public boolean isCellEditable(int row, int column) {
-        return false; 
+        return false;
     }
 
     @Override
@@ -30,10 +32,13 @@ public class ChatLieuModel extends DefaultTableModel{
                 return String.class;
             case 1:
                 return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
             default:
                 return String.class;
         }
     }
-    
-    
+
 }

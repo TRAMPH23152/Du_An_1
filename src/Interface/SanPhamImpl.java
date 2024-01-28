@@ -15,7 +15,7 @@ public interface SanPhamImpl {
     
     public ArrayList<SanPham> getAllSanPhamService();
     
-    public boolean insert(SanPham sp);
+    public Integer insert(SanPham sp);
     
     public boolean update(SanPham sp);
     

@@ -53,7 +53,7 @@ public class ChatLieuRepository {
         }
         return null;
     }
-    
+
     public ChatLieu getChatLieuTen(String ten) {
 
         String sql = "SELECT * FROM ChatLieu WHERE Ten =?";
@@ -68,12 +68,12 @@ public class ChatLieuRepository {
         }
         return null;
     }
-    
+
     public boolean insertChatLieu(ChatLieu chatLieu) {
         try (Connection connection = dBConnection.getConnection()) {
-            String sql = "insert into CHATLIEU (Ma , Ten) values (?,?)";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, chatLieu.getMa());
+            String sql = "INSERT INTO CHATLIEU (Ma, Ten) VALUES (?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setString(1, generateUniqueCode());
                 preparedStatement.setString(2, chatLieu.getTen());
 
                 int rowsAffected = preparedStatement.executeUpdate();
@@ -84,6 +84,12 @@ public class ChatLieuRepository {
             return false;
         }
     }
+
+    private String generateUniqueCode() {
+        String randomCode = String.valueOf((int) (Math.random() * 10000));
+        return "CL" + String.format("%04d", Integer.parseInt(randomCode));
+    }
+
 
     public boolean updateChatLieu(ChatLieu chatLieu) {
         try {
@@ -99,6 +105,6 @@ public class ChatLieuRepository {
             Logger.getLogger(ChatLieuRepository.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
+
     }
 }

@@ -26,6 +26,10 @@ import java.awt.Image;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +41,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.poi.hpsf.Decimal;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -81,21 +86,21 @@ public class Form_SanPham extends javax.swing.JPanel {
 
     public String conVertTinhTrangToString(int tinhTrang) {
         if (tinhTrang == 0) {
-            return "Het Hang";
+            return "Ngung Ban";
         }
-        return "Con Hang";
+        return "Dang Ban";
     }
 
     public int conVertTinhTrangToInt(String tinhTrang) {
         int number = 0;
-        if (tinhTrang.equalsIgnoreCase("Con Hang")) {
+        if (tinhTrang.equalsIgnoreCase("Dang Ban")) {
             return 0;
         }
         return 1;
     }
-    
+
     public void fillTableSanPham(List<ChiTietDep> chiTietDeps) {
-        
+
         DefaultTableModel def = (DefaultTableModel) tbDanhSach.getModel();
         def.setRowCount(0);
 
@@ -106,9 +111,14 @@ public class Form_SanPham extends javax.swing.JPanel {
             ChiTietDep sp = chiTietDeps.get(i);
             Object[] rowData = {
                 sp.getId(),
-                sp.getIdSanPham().getMa(), sp.getIdSanPham().getTen(),
-                sp.getIdDanhMuc().getTen(), sp.getGiaBan(),
-                sp.getMoTa(), conVertTinhTrangToString(sp.getTrangThai()), sp.getHinhAnh()
+                sp.getIdSanPham().getMa(),
+                sp.getIdSanPham().getTen(),
+//                sp.getIdDanhMuc() != null ? sp.getIdDanhMuc().getTen() : "",
+                sp.getIdDanhMuc().getTen(),
+                sp.getGiaBan(),
+                sp.getMoTa(),
+                conVertTinhTrangToString(sp.getTrangThai()),
+                sp.getHinhAnh()
             };
             def.addRow(rowData);
         }
@@ -157,19 +167,24 @@ public class Form_SanPham extends javax.swing.JPanel {
 
     public boolean checkPhaiLaSo(JTextField txt) {
         try {
-            int a = Integer.parseInt(txt.getText());
+            Integer.parseInt(txt.getText().trim());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
+
     }
 
     public boolean checkPhaiDuong(JTextField txt) {
-        if (Integer.parseInt(txt.getText()) < 0) {
+        try {
+            int value = Integer.parseInt(txt.getText().trim());
+
+            return value >= 0;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     public String getImageUrl() {
@@ -219,7 +234,7 @@ public class Form_SanPham extends javax.swing.JPanel {
         btnThem = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
         btnNhapExcel = new javax.swing.JButton();
-        btnXuatExcel = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         txtTenSanPham = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtGia = new javax.swing.JTextField();
@@ -227,10 +242,10 @@ public class Form_SanPham extends javax.swing.JPanel {
         txtMoTa = new javax.swing.JTextArea();
         btnChiTiet = new javax.swing.JButton();
         cboDanhMuc = new javax.swing.JComboBox<>();
-        txtMaSanPham = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
+        txtMaSanPham = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -265,9 +280,11 @@ public class Form_SanPham extends javax.swing.JPanel {
 
         jLabel13.setText("Trạng Thái");
 
-        rdoConHang.setText("Còn Hàng");
+        buttonGroup1.add(rdoConHang);
+        rdoConHang.setText("Đang Bán");
 
-        rdoHetHang.setText("Hết Hàng");
+        buttonGroup1.add(rdoHetHang);
+        rdoHetHang.setText("Ngừng Bán");
 
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Them.png"))); // NOI18N
@@ -296,9 +313,14 @@ public class Form_SanPham extends javax.swing.JPanel {
             }
         });
 
-        btnXuatExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnXuatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/iconExcel.png"))); // NOI18N
-        btnXuatExcel.setText("Xuất Excel");
+        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8-clear-16.png"))); // NOI18N
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Giá");
 
@@ -325,6 +347,10 @@ public class Form_SanPham extends javax.swing.JPanel {
 
         jLabel6.setText("Id");
 
+        lblId.setText("______________________");
+
+        txtMaSanPham.setText("______________________");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -345,8 +371,8 @@ public class Form_SanPham extends javax.swing.JPanel {
                         .addComponent(btnCapNhat)
                         .addGap(38, 38, 38)
                         .addComponent(btnNhapExcel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(btnXuatExcel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addComponent(btnReset)
                         .addGap(165, 165, 165))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,8 +387,8 @@ public class Form_SanPham extends javax.swing.JPanel {
                             .addComponent(lblId)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtTenSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                                .addComponent(cboDanhMuc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtMaSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)))
+                                .addComponent(cboDanhMuc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtMaSanPham))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -395,7 +421,7 @@ public class Form_SanPham extends javax.swing.JPanel {
                     .addComponent(btnThem)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNhapExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnXuatExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -413,10 +439,10 @@ public class Form_SanPham extends javax.swing.JPanel {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel6)
                                 .addComponent(lblId)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtMaSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMaSanPham))
                         .addGap(25, 25, 25)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -587,12 +613,20 @@ public class Form_SanPham extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         int selected = -1;
         if (checkRongTxtArea(txtMoTa) == false || checkRongTxt(txtGia) == false
-                || checkRongTxt(txtMaSanPham) == false || checkRongTxt(txtTenSanPham) == false) {
-            JOptionPane.showMessageDialog(this, "Vui long nhap day du thong tin");
-        } else if (checkPhaiLaSo(txtGia) == false) {
-            JOptionPane.showMessageDialog(this, "Mot so thong tin phai la so");
-        } else if (checkPhaiDuong(txtGia) == false) {
-            JOptionPane.showMessageDialog(this, "So luong và gia khong duoc am");
+                || checkRongTxt(txtTenSanPham) == false) {
+            JOptionPane.showMessageDialog(this, "Vui long nhap day du thong tin.");
+            return;
+        }
+
+        if (!checkPhaiLaSo(txtGia)) {
+            JOptionPane.showMessageDialog(this, "Gia phai la so.");
+            return;
+        }
+
+        BigDecimal gia = new BigDecimal(txtGia.getText());
+        if (gia.compareTo(BigDecimal.ZERO) < 0) {
+            JOptionPane.showMessageDialog(this, "Gia khong duoc am.");
+            return;
         }
 
         SanPham sanPham = new SanPham();
@@ -603,16 +637,18 @@ public class Form_SanPham extends javax.swing.JPanel {
         } else {
             sanPham.setTrangThai(0);
         }
-        if (!sanPhamService.insert(sanPham)) {
+
+        Integer sanPhamMa = sanPhamService.insert(sanPham);
+        if (sanPhamMa <= 0) {
             JOptionPane.showMessageDialog(this, "Them that bai");
             return;
         }
 
         ChiTietSPModel chiTietSPModel = new ChiTietSPModel();
-
+        chiTietSPModel.setId(sanPhamMa);
         chiTietSPModel.setTenSanPham(sanPhamService.getSanPhamMa(sanPham.getMa()));
         chiTietSPModel.setTenDanhMuc(FillTenDanhMuc((String) cboDanhMuc.getSelectedItem()));
-        chiTietSPModel.setGiaBan(Float.parseFloat(txtGia.getText()));
+        chiTietSPModel.setGiaBan(new BigDecimal(txtGia.getText()));
         chiTietSPModel.setMoTa(String.valueOf(txtMoTa.getText()));
         if (rdoConHang.isSelected()) {
             chiTietSPModel.setTrangThai(1);
@@ -621,7 +657,7 @@ public class Form_SanPham extends javax.swing.JPanel {
         }
         chiTietSPModel.setImageUrl(imageUrl);
         JOptionPane.showMessageDialog(this, chiTietSanPhamService.insertChiTietSanPham(chiTietSPModel));
-        listSanPham = chiTietSanPhamService.getAll();
+        listSanPham = chiTietSanPhamService.getAllSanPham();
         fillTableSanPham(listSanPham);
         clearFrom();
         showImage(imageUrl);
@@ -630,12 +666,12 @@ public class Form_SanPham extends javax.swing.JPanel {
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         int selected = -1;
         if (checkRongTxtArea(txtMoTa) == false || checkRongTxt(txtGia) == false
-                || checkRongTxt(txtMaSanPham) == false || checkRongTxt(txtTenSanPham) == false) {
+                || checkRongTxt(txtTenSanPham) == false) {
             JOptionPane.showMessageDialog(this, "Vui long chon ban ghi de cap nhat.");
         } else if (checkPhaiLaSo(txtGia) == false) {
             JOptionPane.showMessageDialog(this, "Mot so thong tin phai la so.");
         } else if (checkPhaiDuong(txtGia) == false) {
-            JOptionPane.showMessageDialog(this, "So luong và gia khong duoc am.");
+            JOptionPane.showMessageDialog(this, "Gia ban khong duoc am.");
         }
 
         SanPham sanPham = new SanPham();
@@ -655,7 +691,7 @@ public class Form_SanPham extends javax.swing.JPanel {
 
         chiTietSPModel.setTenSanPham(sanPhamService.getSanPhamMa(sanPham.getMa()));
         chiTietSPModel.setTenDanhMuc(FillTenDanhMuc((String) cboDanhMuc.getSelectedItem()));
-        chiTietSPModel.setGiaBan(Float.parseFloat(txtGia.getText()));
+        chiTietSPModel.setGiaBan(new BigDecimal(txtGia.getText()));
         chiTietSPModel.setMoTa(String.valueOf(txtMoTa.getText()));
         if (rdoConHang.isSelected()) {
             chiTietSPModel.setTrangThai(1);
@@ -665,7 +701,7 @@ public class Form_SanPham extends javax.swing.JPanel {
         chiTietSPModel.setImageUrl(imageUrl);
         chiTietSPModel.setId(Integer.parseInt(lblId.getText()));
         JOptionPane.showMessageDialog(this, chiTietSanPhamService.updateChiTietSanPham(chiTietSPModel));
-        listSanPham = chiTietSanPhamService.getAll();
+        listSanPham = chiTietSanPhamService.getAllSanPham();
         fillTableSanPham(listSanPham);
         clearFrom();
         showImage(imageUrl);
@@ -705,14 +741,14 @@ public class Form_SanPham extends javax.swing.JPanel {
 
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
         String keyword = (String) cboLocDanhMuc.getSelectedItem();
-        Float gia = txtLocGia.getText().trim().equals("")?null : Float.parseFloat( txtLocGia.getText());
-        if (keyword.equalsIgnoreCase("all") ) {
+        Float gia = txtLocGia.getText().trim().equals("") ? null : Float.parseFloat(txtLocGia.getText());
+        if (keyword.equalsIgnoreCase("all")) {
             listSanPham = chiTietSanPhamService.getAll();
         } else {
-            listSanPham = chiTietSanPhamService.searchChiTietDep(keyword,gia);
+            listSanPham = chiTietSanPhamService.searchChiTietDep(keyword, gia);
         }
 
-        System.out.println(keyword + "trong");
+        System.out.println(keyword);
         if (listSanPham.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm");
         }
@@ -730,7 +766,7 @@ public class Form_SanPham extends javax.swing.JPanel {
         cboDanhMuc.setSelectedItem(tbDanhSach.getValueAt(index, 3).toString());
         txtGia.setText(tbDanhSach.getValueAt(index, 4).toString());
         txtMoTa.setText(tbDanhSach.getValueAt(index, 5).toString());
-        if (tbDanhSach.getValueAt(index, 6).toString() == "Con Hang") {
+        if (tbDanhSach.getValueAt(index, 6).toString() == "Dang Ban") {
             rdoConHang.setSelected(true);
         } else {
             rdoHetHang.setSelected(true);
@@ -761,7 +797,12 @@ public class Form_SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboDanhMucActionPerformed
 
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        clearFrom();
+    }//GEN-LAST:event_btnResetActionPerformed
+
     public void clearFrom() {
+        lblId.setText("");
         txtMaSanPham.setText("");
         txtTenSanPham.setText("");
         txtLocGia.setText("");
@@ -770,6 +811,7 @@ public class Form_SanPham extends javax.swing.JPanel {
         cboDanhMuc.setSelectedIndex(0);
         rdoConHang.setSelected(true);
         cboLocDanhMuc.setSelectedIndex(0);
+        anhChiTiet.setIcon(null);
     }
 
     private SanPham FillTenSanPham(String ten) {
@@ -793,9 +835,9 @@ public class Form_SanPham extends javax.swing.JPanel {
     private javax.swing.JButton btnChiTiet;
     private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnNhapExcel;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnUpLoad;
-    private javax.swing.JButton btnXuatExcel;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cboDanhMuc;
@@ -821,8 +863,12 @@ public class Form_SanPham extends javax.swing.JPanel {
     private javax.swing.JTable tbDanhSach;
     private javax.swing.JTextField txtGia;
     private javax.swing.JTextField txtLocGia;
-    private javax.swing.JTextField txtMaSanPham;
+    private javax.swing.JLabel txtMaSanPham;
     private javax.swing.JTextArea txtMoTa;
     private javax.swing.JTextField txtTenSanPham;
     // End of variables declaration//GEN-END:variables
+
+    private Decimal Decimal(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

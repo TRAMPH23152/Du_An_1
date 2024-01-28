@@ -124,8 +124,8 @@
                               <Component id="btnCapNhat" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                               <Component id="btnNhapExcel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="38" max="32767" attributes="0"/>
-                              <Component id="btnXuatExcel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="70" max="32767" attributes="0"/>
+                              <Component id="btnReset" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -144,8 +144,8 @@
                                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="txtTenSanPham" alignment="0" pref="272" max="32767" attributes="0"/>
                                       <Component id="cboDanhMuc" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtMaSanPham" alignment="0" pref="272" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="txtMaSanPham" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -189,7 +189,7 @@
                           <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCapNhat" alignment="3" max="32767" attributes="0"/>
                           <Component id="btnNhapExcel" alignment="3" max="32767" attributes="0"/>
-                          <Component id="btnXuatExcel" alignment="3" max="32767" attributes="0"/>
+                          <Component id="btnReset" alignment="3" max="32767" attributes="0"/>
                           <Component id="btnChiTiet" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -213,10 +213,10 @@
                                       <Component id="lblId" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtMaSanPham" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtMaSanPham" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -290,12 +290,18 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rdoConHang">
               <Properties>
-                <Property name="text" type="java.lang.String" value="C&#xf2;n H&#xe0;ng"/>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&#x110;ang B&#xe1;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rdoHetHang">
               <Properties>
-                <Property name="text" type="java.lang.String" value="H&#x1ebf;t H&#xe0;ng"/>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ng&#x1eeb;ng B&#xe1;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnThem">
@@ -340,16 +346,19 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhapExcelActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnXuatExcel">
+            <Component class="javax.swing.JButton" name="btnReset">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icon/iconExcel.png"/>
+                  <Image iconType="3" name="/Icon/icons8-clear-16.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t Excel"/>
+                <Property name="text" type="java.lang.String" value="Reset"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTenSanPham">
             </Component>
@@ -402,8 +411,6 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtMaSanPham">
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="M&#xe3; S&#x1ea3;n Ph&#x1ea9;m"/>
@@ -415,6 +422,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblId">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="______________________"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txtMaSanPham">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="______________________"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

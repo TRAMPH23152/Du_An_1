@@ -73,7 +73,7 @@ public class MauSacRepository {
         try (Connection connection = dBConnection.getConnection()) {
             String sql = "insert into MAUSAC (Ma , MauSac) values (?,?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, mauSac.getMa());
+                preparedStatement.setString(1, generateUniqueCode());
                 preparedStatement.setString(2, mauSac.getMauSac());
 
                 int rowsAffected = preparedStatement.executeUpdate();
@@ -85,6 +85,11 @@ public class MauSacRepository {
         }
     }
 
+    private String generateUniqueCode() {
+        String randomCode = String.valueOf((int) (Math.random() * 10000));
+        return "MS" + String.format("%04d", Integer.parseInt(randomCode));
+    }
+    
     public boolean updateMauSac(MauSac mauSac) {
         try {
             Connection connection = dBConnection.getConnection();

@@ -73,7 +73,7 @@ public class NsxRepository {
         try (Connection connection = dBConnection.getConnection()) {
             String sql = "INSERT INTO NSX (Ma, Ten) VALUES (?, ?)";
            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, nhaSanXuat.getMa());
+                preparedStatement.setString(1, generateUniqueCode());
                 preparedStatement.setString(2, nhaSanXuat.getTen());
 
                 int rowsAffected = preparedStatement.executeUpdate();
@@ -85,15 +85,19 @@ public class NsxRepository {
         }
     }
     
+    private String generateUniqueCode() {
+        String randomCode = String.valueOf((int) (Math.random() * 10000));
+        return "NSX" + String.format("%04d", Integer.parseInt(randomCode));
+    }
 
     public boolean updateNsx(NhaSanXuat nsx) {
         try {
             Connection connection = dBConnection.getConnection();
-            String sql = "update NSX set Ten = ? where Ma = ?";
+            String sql = "update NSX set Ten = ? , Ma = ? where Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, nsx.getTen());
             ps.setObject(2, nsx.getMa());
-            
+            ps.setInt(3, nsx.getId());
             ps.execute();
             return true;
         } catch (SQLException ex) {

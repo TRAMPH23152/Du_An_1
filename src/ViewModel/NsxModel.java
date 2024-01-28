@@ -10,12 +10,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class NsxModel extends DefaultTableModel{
-    
-    public NsxModel(){
+public class NsxModel extends DefaultTableModel {
+
+    public NsxModel() {
         super();
+        this.addColumn("Id NSX");
         this.addColumn("Mã NSX");
         this.addColumn("Tên NSX");
+        this.addColumn("Trạng Thái");
     }
 
     @Override
@@ -30,10 +32,13 @@ public class NsxModel extends DefaultTableModel{
                 return String.class;
             case 1:
                 return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
             default:
                 return String.class;
         }
     }
-    
-    
+
 }

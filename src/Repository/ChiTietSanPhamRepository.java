@@ -48,7 +48,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                listctd.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                listctd.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
             c.close();
@@ -198,7 +198,7 @@ public class ChiTietSanPhamRepository {
                         ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                         NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                         De d = der.getDeByID(rs.getString(8));
-                        chiTietDepList.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                        chiTietDepList.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
                     }
                 }
@@ -237,7 +237,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                listctd.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                listctd.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
         } catch (Exception e) {
@@ -259,7 +259,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                listctd.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                listctd.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
         } catch (Exception e) {
@@ -288,7 +288,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
             c.close();
@@ -321,7 +321,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
             c.close();
@@ -354,7 +354,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
             c.close();
@@ -387,7 +387,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
             c.close();
@@ -420,7 +420,7 @@ public class ChiTietSanPhamRepository {
                 ChatLieu cl = clr.getChatLieuByID(rs.getString(6));
                 NhaSanXuat nsx = nsxr.getNSXByID(rs.getString(7));
                 De d = der.getDeByID(rs.getString(8));
-                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getFloat(10), rs.getFloat(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
+                list.add(new ChiTietDep(rs.getInt(1), sp, dm, s, ms, cl, nsx, d, rs.getInt(9), rs.getBigDecimal(10), rs.getBigDecimal(11), rs.getString(12), rs.getString(13), rs.getInt(14)));
 
             }
             c.close();

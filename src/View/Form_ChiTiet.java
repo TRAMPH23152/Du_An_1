@@ -25,6 +25,7 @@ import Utilities.DBConnection;
 import ViewModel.ChiTietSPModel;
 import java.awt.Image;
 import java.io.File;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -754,7 +755,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         chiTietSPModel.setTenNhaSX(FillTenNhaSanXuat((String) cboNsx.getSelectedItem()));
         chiTietSPModel.setTenDe(FillTenDe((String) cboDe.getSelectedItem()));
         chiTietSPModel.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        chiTietSPModel.setGiaBan(Float.parseFloat(txtGia.getText()));
+        chiTietSPModel.setGiaBan(new BigDecimal(txtGia.getText()));
         chiTietSPModel.setMoTa(String.valueOf(txtMoTa.getText()));
         if (rdoDangBan.isSelected()) {
             chiTietSPModel.setTrangThai(1);
@@ -803,7 +804,7 @@ public class Form_ChiTiet extends javax.swing.JFrame {
         chiTietSPModel.setTenNhaSX(FillTenNhaSanXuat((String) cboNsx.getSelectedItem()));
         chiTietSPModel.setTenDe(FillTenDe((String) cboDe.getSelectedItem()));
         chiTietSPModel.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        chiTietSPModel.setGiaBan(Float.parseFloat(txtGia.getText()));
+        chiTietSPModel.setGiaBan(new BigDecimal(txtGia.getText()));
         chiTietSPModel.setMoTa(String.valueOf(txtMoTa.getText()));
         if (rdoDangBan.isSelected()) {
             chiTietSPModel.setTrangThai(1);

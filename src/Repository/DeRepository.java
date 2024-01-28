@@ -73,7 +73,7 @@ public class DeRepository {
         try (Connection connection = dBConnection.getConnection()) {
             String sql = "INSERT INTO DE (Ma , Ten) VALUES (?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, de.getMa());
+                preparedStatement.setString(1, generateUniqueCode());
                 preparedStatement.setString(2, de.getTen());
 
                 int rowsAffected = preparedStatement.executeUpdate();
@@ -85,6 +85,11 @@ public class DeRepository {
         }
     }
 
+    private String generateUniqueCode() {
+        String randomCode = String.valueOf((int) (Math.random() * 10000));
+        return "DE" + String.format("%04d", Integer.parseInt(randomCode));
+    }
+    
     public boolean updateDe(De de) {
         try {
             Connection connection = dBConnection.getConnection();
