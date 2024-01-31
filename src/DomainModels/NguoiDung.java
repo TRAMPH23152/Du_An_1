@@ -14,7 +14,7 @@ public class NguoiDung {
     
     private Integer idNguoiDung;
     
-    private Integer idChucVu;
+    private ChucVu idChucVu;
     
     private String maNguoiDung;
     
@@ -38,7 +38,7 @@ public class NguoiDung {
     public NguoiDung() {
     }
 
-    public NguoiDung(Integer idNguoiDung, Integer idChucVu, String maNguoiDung, String tenNguoiDung, Date ngaySinhNguoiDung, String emailNguoiDung, String sdtNguoiDung, Integer gioiTinhNguoiDung, String diaChiNguoiDung, String matKhauNguoiDung, Integer trangThaiNguoiDung) {
+    public NguoiDung(Integer idNguoiDung, ChucVu idChucVu, String maNguoiDung, String tenNguoiDung, Date ngaySinhNguoiDung, String emailNguoiDung, String sdtNguoiDung, Integer gioiTinhNguoiDung, String diaChiNguoiDung, String matKhauNguoiDung, Integer trangThaiNguoiDung) {
         this.idNguoiDung = idNguoiDung;
         this.idChucVu = idChucVu;
         this.maNguoiDung = maNguoiDung;
@@ -60,11 +60,11 @@ public class NguoiDung {
         this.idNguoiDung = idNguoiDung;
     }
 
-    public Integer getIdChucVu() {
+    public ChucVu getIdChucVu() {
         return idChucVu;
     }
 
-    public void setIdChucVu(Integer idChucVu) {
+    public void setIdChucVu(ChucVu idChucVu) {
         this.idChucVu = idChucVu;
     }
 
@@ -140,11 +140,6 @@ public class NguoiDung {
         this.trangThaiNguoiDung = trangThaiNguoiDung;
     }
 
-    @Override
-    public String toString() {
-        return "NguoiDung{" + "idNguoiDung=" + idNguoiDung + ", idChucVu=" + idChucVu + ", maNguoiDung=" + maNguoiDung + ", tenNguoiDung=" + tenNguoiDung + ", ngaySinhNguoiDung=" + ngaySinhNguoiDung + ", emailNguoiDung=" + emailNguoiDung + ", sdtNguoiDung=" + sdtNguoiDung + ", gioiTinhNguoiDung=" + gioiTinhNguoiDung + ", diaChiNguoiDung=" + diaChiNguoiDung + ", matKhauNguoiDung=" + matKhauNguoiDung + ", trangThaiNguoiDung=" + trangThaiNguoiDung + '}';
-    }
-
     public NguoiDung(String maNguoiDung, String tenNguoiDung, Date ngaySinhNguoiDung, String emailNguoiDung, String sdtNguoiDung, Integer gioiTinhNguoiDung, String diaChiNguoiDung, String matKhauNguoiDung, Integer trangThaiNguoiDung) {
         this.maNguoiDung = maNguoiDung;
         this.tenNguoiDung = tenNguoiDung;
@@ -157,8 +152,13 @@ public class NguoiDung {
         this.trangThaiNguoiDung = trangThaiNguoiDung;
     }
 
+    @Override
+    public String toString() {
+        return "NguoiDung{" + "idNguoiDung=" + idNguoiDung + ", idChucVu=" + idChucVu + ", maNguoiDung=" + maNguoiDung + ", tenNguoiDung=" + tenNguoiDung + ", ngaySinhNguoiDung=" + ngaySinhNguoiDung + ", emailNguoiDung=" + emailNguoiDung + ", sdtNguoiDung=" + sdtNguoiDung + ", gioiTinhNguoiDung=" + gioiTinhNguoiDung + ", diaChiNguoiDung=" + diaChiNguoiDung + ", matKhauNguoiDung=" + matKhauNguoiDung + ", trangThaiNguoiDung=" + trangThaiNguoiDung + '}';
+    }
+
+
+
     
-    
-    
-    
+       
 }

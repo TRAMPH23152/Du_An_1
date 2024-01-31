@@ -4,8 +4,13 @@
  */
 package View;
 
+import DomainModels.NguoiDung;
+import Service.NguoiDungService;
 import javax.swing.JOptionPane;
 import View_Template.JFrame_Main;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -13,12 +18,26 @@ import View_Template.JFrame_Main;
  */
 public class From_DangNhap extends javax.swing.JFrame {
 
+    NguoiDungService nguoiDungService = new NguoiDungService();
+
+    public static String idDangNhap = "";
+    public static String emailDangNhap = "";
+
     /**
      * Creates new form From_DangNhap
      */
     public From_DangNhap() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+    private static final Pattern pattern = Pattern.compile(EMAIL_REGEX);
+
+    public static boolean validateEmail(String email) {
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     /**
@@ -137,19 +156,37 @@ public class From_DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
-        String enteredUsername = txtUserName.getText();
-        String enteredPassword = new String(txtPassDN.getPassword());
-
-        if (enteredUsername.equals("admin") && enteredPassword.equals("admin")) {
-            // Nếu đăng nhập thành công, chuyển hướng sang trang chủ
-            dispose(); // Đóng cửa sổ đăng nhập
-            JFrame_Main jframe = new JFrame_Main();
-            jframe.setVisible(true);
-        } else {
-            // Hiển thị thông báo lỗi nếu đăng nhập không thành công
-            JOptionPane.showMessageDialog(this, "Đăng nhập không thành công. Vui lòng thử lại!");
+        NguoiDung nguoiDung = new NguoiDung();
+        nguoiDung.setEmailNguoiDung((txtUserName.getText()));
+        nguoiDung.setMatKhauNguoiDung(String.valueOf(txtPassDN.getPassword()));
+        if (nguoiDung.getEmailNguoiDung().isEmpty() || !validateEmail(nguoiDung.getEmailNguoiDung())) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập một địa chỉ email hợp lệ.");
+            return;
         }
+
+        if (nguoiDung.getMatKhauNguoiDung().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu.");
+            return;
+        }
+        ArrayList<NguoiDung> nguoiDungs = nguoiDungService.checkLogin(nguoiDung);
+
+        if (nguoiDungs.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Đăng nhập thất bại, vui lòng kiểm tra lại tài khoản hoặc mật khẩu");
+            return;
+        }
+
+        Integer idNguoiDung = nguoiDungs.get(0).getIdNguoiDung();
+
+        if (idNguoiDung.equals(1)) { // Replace 1 with the actual ID for "Quản lý"
+            JFrame_Main frame_Main = new JFrame_Main();
+            frame_Main.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Đây là view của quản lý");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Đây là view của nhân viên");
+        }
+        idDangNhap = nguoiDungService.getIDByEmail(txtUserName.getText());
+        emailDangNhap = txtUserName.getText();
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**
