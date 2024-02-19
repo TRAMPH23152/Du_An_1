@@ -6,6 +6,7 @@ package View_Template;
 
 
 import View.Form_BanHang;
+import View.Form_KM;
 import View.Form_KhachHang;
 import View.Form_NV;
 
@@ -52,7 +53,7 @@ public class JFrame_Main extends javax.swing.JFrame {
                    }else if(index == 12){
                        setForm(new Form_ThongKe());
                    }else if(index == 14){
-                       
+                       setForm(new Form_KM());
                    }else if(index == 16){
                        
                    }

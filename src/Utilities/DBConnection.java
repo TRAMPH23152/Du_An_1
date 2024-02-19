@@ -15,10 +15,10 @@ import java.util.logging.Logger;
 public class DBConnection {
     
     private static final String USERNAME = "sa";
-    private static final String PASSWORD = "123";
+    private static final String PASSWORD = "2003";
     private static final String SERVER_NAME = "DESKTOP-UM8NC1J\\SQLEXPRESS";
     private static final String PORT = "1433";
-    private static final String DATABASE_NAME = "UNGDUNGBANDEP_ORANGE";
+    private static final String DATABASE_NAME = "UNGDUNGBANDEP_ORANGE_chot";
     private static final boolean USING_SSL = true;
     
     private static String CONNECT_STRING;
