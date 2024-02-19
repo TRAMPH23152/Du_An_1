@@ -14,38 +14,58 @@ public class KhuyenMai {
     
     
     private Integer id;
-    
+
     private String ma;
-    
+
     private String ten;
-    
-    private Float phanTramGiam;
-    
+
+    private Double phanTramGiam;
+
+    private Double giaGiam;
+
     private Integer soLuong;
-    
+
     private Date ngayBatDau;
-    
+
     private Date ngayKetThuc;
-    
+
+    private Integer hinhThucGiam;
+
     private Integer trangThai;
-    
+
     private String moTa;
 
     public KhuyenMai() {
     }
 
-    
-    public KhuyenMai(Integer id, String ma, String ten, Float phanTramGiam, Integer soLuong, Date ngayBatDau, Date ngayKetThuc, Integer trangThai, String moTa) {
+    public KhuyenMai(Integer id, String ma, String ten, Double phanTramGiam, Double giaGiam, Integer soLuong, Date ngayBatDau, Date ngayKetThuc, Integer hinhThucGiam, Integer trangThai, String moTa) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
         this.phanTramGiam = phanTramGiam;
+        this.giaGiam = giaGiam;
         this.soLuong = soLuong;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
+        this.hinhThucGiam = hinhThucGiam;
         this.trangThai = trangThai;
         this.moTa = moTa;
     }
+
+    public KhuyenMai(String ma, String ten, Double phanTramGiam, Double giaGiam, Integer soLuong, Date ngayBatDau, Date ngayKetThuc, Integer hinhThucGiam, Integer trangThai, String moTa) {
+        this.ma = ma;
+        this.ten = ten;
+        this.phanTramGiam = phanTramGiam;
+        this.giaGiam = giaGiam;
+        this.soLuong = soLuong;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.hinhThucGiam = hinhThucGiam;
+        this.trangThai = trangThai;
+        this.moTa = moTa;
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -71,12 +91,20 @@ public class KhuyenMai {
         this.ten = ten;
     }
 
-    public Float getPhanTramGiam() {
+    public Double getPhanTramGiam() {
         return phanTramGiam;
     }
 
-    public void setPhanTramGiam(Float phanTramGiam) {
+    public void setPhanTramGiam(Double phanTramGiam) {
         this.phanTramGiam = phanTramGiam;
+    }
+
+    public Double getGiaGiam() {
+        return giaGiam;
+    }
+
+    public void setGiaGiam(Double giaGiam) {
+        this.giaGiam = giaGiam;
     }
 
     public Integer getSoLuong() {
@@ -103,6 +131,14 @@ public class KhuyenMai {
         this.ngayKetThuc = ngayKetThuc;
     }
 
+    public Integer getHinhThucGiam() {
+        return hinhThucGiam;
+    }
+
+    public void setHinhThucGiam(Integer hinhThucGiam) {
+        this.hinhThucGiam = hinhThucGiam;
+    }
+
     public Integer getTrangThai() {
         return trangThai;
     }
@@ -119,21 +155,12 @@ public class KhuyenMai {
         this.moTa = moTa;
     }
 
-    public KhuyenMai(String ma, String ten, Float phanTramGiam, Integer soLuong, Date ngayBatDau, Date ngayKetThuc, Integer trangThai, String moTa) {
-        this.ma = ma;
-        this.ten = ten;
-        this.phanTramGiam = phanTramGiam;
-        this.soLuong = soLuong;
-        this.ngayBatDau = ngayBatDau;
-        this.ngayKetThuc = ngayKetThuc;
-        this.trangThai = trangThai;
-        this.moTa = moTa;
-    }
-
     @Override
     public String toString() {
-        return "KhuyenMai{" + "id=" + id + ", ma=" + ma + ", ten=" + ten + ", phanTramGiam=" + phanTramGiam + ", soLuong=" + soLuong + ", ngayBatDau=" + ngayBatDau + ", ngayKetThuc=" + ngayKetThuc + ", trangThai=" + trangThai + ", moTa=" + moTa + '}';
+        return "KhuyenMai{" + "id=" + id + ", ma=" + ma + ", ten=" + ten + ", phanTramGiam=" + phanTramGiam + ", giaGiam=" + giaGiam + ", soLuong=" + soLuong + ", ngayBatDau=" + ngayBatDau + ", ngayKetThuc=" + ngayKetThuc + ", hinhThucGiam=" + hinhThucGiam + ", trangThai=" + trangThai + ", moTa=" + moTa + '}';
     }
+
     
+   
     
 }

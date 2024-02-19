@@ -51,7 +51,10 @@ public class ChiTietDep {
     public ChiTietDep() {
     }
 
-    public ChiTietDep(Integer Id, SanPham IdSanPham, DanhMuc IdDanhMuc, Size IdSize, MauSac IdMauSac, ChatLieu IdChatLieu, NhaSanXuat IdNSX, De IdDe, Integer SoLuong, BigDecimal GiaBan, String MoTa, Integer TrangThai) {
+
+    public ChiTietDep(Integer Id, SanPham IdSanPham, DanhMuc IdDanhMuc, Size IdSize, MauSac IdMauSac, ChatLieu IdChatLieu, NhaSanXuat IdNSX, De IdDe, Integer SoLuong, BigDecimal GiaBan, String MoTa, Integer TrangThai) {}
+
+    public ChiTietDep(Integer Id, SanPham IdSanPham, DanhMuc IdDanhMuc, Size IdSize, MauSac IdMauSac, ChatLieu IdChatLieu, NhaSanXuat IdNSX, De IdDe, Integer SoLuong, BigDecimal GiaBan, Integer TrangThai) {
         this.Id = Id;
         this.IdSanPham = IdSanPham;
         this.IdDanhMuc = IdDanhMuc;
@@ -62,9 +65,9 @@ public class ChiTietDep {
         this.IdDe = IdDe;
         this.SoLuong = SoLuong;
         this.GiaBan = GiaBan;
-        this.MoTa = MoTa;
         this.TrangThai = TrangThai;
     }
+
 
     
     
@@ -84,6 +87,14 @@ public class ChiTietDep {
         this.HinhAnh = HinhAnh;
         this.TrangThai = TrangThai;
     }
+
+    public ChiTietDep(Integer Id) {
+        this.Id = Id;
+    }
+
+   
+
+    
 
     public Integer getId() {
         return Id;

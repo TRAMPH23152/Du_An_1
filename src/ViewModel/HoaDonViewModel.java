@@ -4,6 +4,9 @@
  */
 package ViewModel;
 
+import DomainModels.KhachHang;
+import DomainModels.KhuyenMai;
+import DomainModels.NguoiDung;
 import java.util.Date;
 
 /**
@@ -11,7 +14,7 @@ import java.util.Date;
  * @author asus
  */
 public class HoaDonViewModel {
-        private Integer id;
+    private Integer id;
     
     private String ma;
     
@@ -32,6 +35,23 @@ public class HoaDonViewModel {
     private Date ngaySua;
     
     private Integer trangThai;
+
+    public HoaDonViewModel() {
+    }
+
+    public HoaDonViewModel(Integer id, String ma, Integer idNguoiDung, Integer idKhachHang, Integer idKhuyenMai, Float tongTien, Float thanhTien, Date ngayThanhToan, Date ngayTao, Date ngaySua, Integer trangThai) {
+        this.id = id;
+        this.ma = ma;
+        this.idNguoiDung = idNguoiDung;
+        this.idKhachHang = idKhachHang;
+        this.idKhuyenMai = idKhuyenMai;
+        this.tongTien = tongTien;
+        this.thanhTien = thanhTien;
+        this.ngayThanhToan = ngayThanhToan;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
 
     public Integer getId() {
         return id;
@@ -120,5 +140,6 @@ public class HoaDonViewModel {
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
+    
     
 }

@@ -49,6 +49,13 @@ public class KhachHang {
         this.trangThai = trangThai;
     }
 
+    public KhachHang(Integer id, String ten, String sdt) {
+        this.id = id;
+        this.ten = ten;
+        this.sdt = sdt;
+    }
+
+
     public Integer getId() {
         return id;
     }

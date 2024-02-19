@@ -53,7 +53,7 @@ public class Form_KhuyenMai extends javax.swing.JPanel {
         KhuyenMai km = new KhuyenMai();
         km.setMa(txtMaKM.getText().trim());
         km.setTen(txtTenKM.getText().trim());
-        km.setPhanTramGiam(Float.parseFloat(txtMucGiam.getText().trim()));
+        km.setPhanTramGiam(Double.parseDouble(txtMucGiam.getText().trim()));
         km.setSoLuong(Integer.parseInt(txtSoLuongKM.getText().trim()));
         String ngayBatDau = txtNgayBatDauKM.getText().trim();
         Date nbd = parseDate(ngayBatDau);

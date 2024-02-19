@@ -12,13 +12,13 @@ import java.util.Date;
  */
 public class HoaDonChiTiet {
     
-    private Integer id;
+    private String id;
     
-    private Integer idHoaDon;
+    private String idHoaDon;
     
-    private Integer idChiTietDep;
+    private String idChiTietDep;
     
-    private Float donGia;
+    private Double donGia;
     
     private Integer soLuong;
     
@@ -32,7 +32,7 @@ public class HoaDonChiTiet {
     }
 
     
-    public HoaDonChiTiet(Integer id, Integer idHoaDon, Integer idChiTietDep, Float donGia, Integer soLuong, Date ngayTao, Date ngaySua, Integer trangThai) {
+    public HoaDonChiTiet(String id, String idHoaDon, String idChiTietDep, Double donGia, Integer soLuong, Date ngayTao, Date ngaySua, Integer trangThai) {
         this.id = id;
         this.idHoaDon = idHoaDon;
         this.idChiTietDep = idChiTietDep;
@@ -43,35 +43,37 @@ public class HoaDonChiTiet {
         this.trangThai = trangThai;
     }
 
-    public Integer getId() {
+  
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getIdHoaDon() {
+    public String getIdHoaDon() {
         return idHoaDon;
     }
 
-    public void setIdHoaDon(Integer idHoaDon) {
+    public void setIdHoaDon(String idHoaDon) {
         this.idHoaDon = idHoaDon;
     }
 
-    public Integer getIdChiTietDep() {
+    public String getIdChiTietDep() {
         return idChiTietDep;
     }
 
-    public void setIdChiTietDep(Integer idChiTietDep) {
+    public void setIdChiTietDep(String idChiTietDep) {
         this.idChiTietDep = idChiTietDep;
     }
 
-    public Float getDonGia() {
+    public Double getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(Float donGia) {
+    public void setDonGia(Double donGia) {
         this.donGia = donGia;
     }
 

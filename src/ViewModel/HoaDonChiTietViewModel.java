@@ -4,14 +4,16 @@
  */
 package ViewModel;
 
+import DomainModels.ChiTietDep;
+import DomainModels.HoaDon;
 import java.util.Date;
 
 /**
  *
  * @author asus
  */
-public class HoaDonCTViewModel {
-        private Integer id;
+public class HoaDonChiTietViewModel {
+    private Integer id;
     
     private Integer idHoaDon;
     
@@ -26,6 +28,26 @@ public class HoaDonCTViewModel {
     private Date ngaySua;
     
     private Integer trangThai;
+
+    public HoaDonChiTietViewModel() {
+    }
+
+    public HoaDonChiTietViewModel(Integer id, Integer idHoaDon, Integer idChiTietDep, Float donGia, Integer soLuong, Date ngayTao, Date ngaySua, Integer trangThai) {
+        this.id = id;
+        this.idHoaDon = idHoaDon;
+        this.idChiTietDep = idChiTietDep;
+        this.donGia = donGia;
+        this.soLuong = soLuong;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+
+    public HoaDonChiTietViewModel(int aInt, HoaDon h, ChiTietDep ct, float aFloat, int aInt0, java.sql.Date date, java.sql.Date date0, int aInt1) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
 
     public Integer getId() {
         return id;

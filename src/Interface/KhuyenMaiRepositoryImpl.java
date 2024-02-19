@@ -12,4 +12,5 @@ public interface KhuyenMaiRepositoryImpl {
     public boolean update(String ma, KhuyenMai km);
     
     public ArrayList<KhuyenMai> timKiem(String ma, String ten, float mucGiam);
+    public ArrayList<KhuyenMai> searchDate(String ngayBatDau, String ngayKetThuc);
 }

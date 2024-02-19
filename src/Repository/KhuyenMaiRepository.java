@@ -4,8 +4,13 @@
  */
 package Repository;
 
-import DomainModels.KhuyenMai;
 import Interface.KhuyenMaiRepositoryImpl;
+
+/**
+ *
+ * @author asus
+ */
+import DomainModels.KhuyenMai;
 import Utilities.DBConnection;
 import java.util.ArrayList;
 import java.sql.*;
@@ -17,7 +22,7 @@ public class KhuyenMaiRepository implements KhuyenMaiRepositoryImpl {
     @Override
     public ArrayList<KhuyenMai> getAllKM() {
         ArrayList<KhuyenMai> dskm = new ArrayList<>();
-        String sql = "Select Ma, Ten, PhanTramGiam, SoLuong, NgayBatDau, NgayKetThuc, TrangThai, MoTa from KHUYENMAI";
+        String sql = "Select Ma, Ten, PhanTramGiam, GiaGiam , SoLuong, NgayBatDau, NgayKetThuc, HinhThucGiam, TrangThai, MoTa from KHUYENMAI";
         try {
             Connection con = cdao.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -25,12 +30,14 @@ public class KhuyenMaiRepository implements KhuyenMaiRepositoryImpl {
             while (rs.next()) {
                 dskm.add(new KhuyenMai(rs.getString(1),
                         rs.getString(2),
-                        rs.getFloat(3),
-                        rs.getInt(4),
-                        rs.getDate(5),
+                        rs.getDouble(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
                         rs.getDate(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getDate(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10)));
             }
         } catch (Exception e) {
             System.out.println("Lỗi GetAll KhuyenMai!");
@@ -40,19 +47,22 @@ public class KhuyenMaiRepository implements KhuyenMaiRepositoryImpl {
 
     @Override
     public boolean add(KhuyenMai km) {
-        String sql = "INSERT INTO KHUYENMAI (Ma, Ten, PhanTramGiam, SoLuong, NgayBatDau, NgayKetThuc, TrangThai, MoTa)\n"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO KHUYENMAI (Ma, Ten, PhanTramGiam, GiaGiam, SoLuong, NgayBatDau, NgayKetThuc, HinhThucGiam, TrangThai, MoTa)\n"
+                + "VALUES \n"
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             Connection con = cdao.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, km.getMa());
             ps.setObject(2, km.getTen());
             ps.setObject(3, km.getPhanTramGiam());
-            ps.setObject(4, km.getSoLuong());
-            ps.setObject(5, km.getNgayBatDau());
-            ps.setObject(6, km.getNgayKetThuc());
-            ps.setObject(7, km.getTrangThai());
-            ps.setObject(8, km.getMoTa());
+            ps.setObject(4, km.getGiaGiam());
+            ps.setObject(5, km.getSoLuong());
+            ps.setObject(6, km.getNgayBatDau());
+            ps.setObject(7, km.getNgayKetThuc());
+            ps.setObject(8, km.getHinhThucGiam());
+            ps.setObject(9, km.getTrangThai());
+            ps.setObject(10, km.getMoTa());
 
             ps.executeUpdate();
             return true;
@@ -64,19 +74,21 @@ public class KhuyenMaiRepository implements KhuyenMaiRepositoryImpl {
 
     @Override
     public boolean update(String ma, KhuyenMai km) {
-        String sql = "Update KHUYENMAI set Ten=? , PhanTramGiam = ?, SoLuong= ?, NgayBatDau =?,"
-                + " NgayKetThuc=?, TrangThai = ?, MoTa = ? where Ma=?";
+        String sql = "Update KHUYENMAI Set Ten= ?, PhanTramGiam = ?, GiaGiam = ?,"
+                + " SoLuong = ?, NgayBatDau = ?, NgayKetThuc = ?, HinhThucGiam = ?, TrangThai= ?, MoTa = ? where Ma= ?";
         try {
             Connection con = cdao.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, km.getTen());
             ps.setObject(2, km.getPhanTramGiam());
-            ps.setObject(3, km.getSoLuong());
-            ps.setObject(4, km.getNgayBatDau());
-            ps.setObject(5, km.getNgayKetThuc());
-            ps.setObject(6, km.getTrangThai());
-            ps.setObject(7, km.getMoTa());
-            ps.setObject(8, ma);
+            ps.setObject(3, km.getGiaGiam());
+            ps.setObject(4, km.getSoLuong());
+            ps.setObject(5, km.getNgayBatDau());
+            ps.setObject(6, km.getNgayKetThuc());
+            ps.setObject(7, km.getHinhThucGiam());
+            ps.setObject(8, km.getTrangThai());
+            ps.setObject(9, km.getMoTa());
+            ps.setObject(10, ma);
 
             ps.executeUpdate();
             return true;
@@ -87,6 +99,114 @@ public class KhuyenMaiRepository implements KhuyenMaiRepositoryImpl {
         return false;
     }
 
+    @Override
+    public ArrayList<KhuyenMai> searchDate(String ngayBatDau, String ngayKetThuc) {
+        ArrayList<KhuyenMai> listSearch = new ArrayList<>();
+        String sql = "Select Ma, Ten, PhanTramGiam, GiaGiam , SoLuong, NgayBatDau, NgayKetThuc, HinhThucGiam, TrangThai, MoTa from KHUYENMAI\n"
+                + "WHERE NgayBatDau >= ? and NgayKetThuc <= ? ";
+        try {
+            Connection con = cdao.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, ngayBatDau);
+            ps.setString(2, ngayKetThuc);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listSearch.add(new KhuyenMai(rs.getString(1),
+                        rs.getString(2),
+                        rs.getDouble(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
+                        rs.getDate(6),
+                        rs.getDate(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10)));
+            }
+        } catch (Exception e) {
+            System.out.println("Lỗi SearchDate KhuyenMai!");
+        }
+        return listSearch;
+    }
+
+//    @Override
+//    public ArrayList<KhuyenMai> searchTinhTrang(int tinhTrang) {
+//        ArrayList<KhuyenMai> listSeachTT = new ArrayList<>();
+//        String sql = "Select Ma, Ten, PhanTramGiam, GiaGiam , SoLuong, NgayBatDau,"
+//                + " NgayKetThuc, HinhThucGiam, TrangThai, MoTa from KHUYENMAI where TrangThai =?";
+//        try {
+//            Connection con = cdao.getConnection();
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, tinhTrang);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                listSeachTT.add(new KhuyenMai(rs.getString(1),
+//                        rs.getString(2),
+//                        rs.getFloat(3),
+//                        rs.getDouble(4),
+//                        rs.getInt(5),
+//                        rs.getDate(6),
+//                        rs.getDate(7),
+//                        rs.getInt(8),
+//                        rs.getInt(9),
+//                        rs.getString(10)));
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Lỗi SearchTinhTrang KhuyenMai!");
+//        }
+//        return listSeachTT;
+//    }
+//    @Override
+//    public ArrayList<KhuyenMai> search(String maKM) {
+//        ArrayList<KhuyenMai> listTimKiem = new ArrayList<>();
+//        String sql = "Select Ma, Ten, PhanTramGiam, GiaGiam , SoLuong, NgayBatDau, NgayKetThuc, HinhThucGiam, TrangThai, MoTa from KHUYENMAI";
+//        try {
+//            Connection con = cdao.getConnection();
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                listTimKiem.add(new KhuyenMai(rs.getString(1),
+//                        rs.getString(2),
+//                        rs.getFloat(3),
+//                        rs.getDouble(4),
+//                        rs.getInt(5),
+//                        rs.getDate(6),
+//                        rs.getDate(7),
+//                        rs.getInt(8),
+//                        rs.getInt(9),
+//                        rs.getString(10)));
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Lỗi Tim Kiem Khuyến Mại!");
+//        }
+//        return listTimKiem;
+//    }
+//    @Override
+//    public ArrayList<KhuyenMai> searchHinhThuc(int hinhThuc) {
+//        ArrayList<KhuyenMai> listSeachHT = new ArrayList<>();
+//        String sql = "Select Ma, Ten, PhanTramGiam, GiaGiam , SoLuong, "
+//                + "NgayBatDau, NgayKetThuc, HinhThucGiam, TrangThai, MoTa from KHUYENMAI where HinhThucGiam =?";
+//        try {
+//            Connection con = cdao.getConnection();
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, hinhThuc);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                listSeachHT.add(new KhuyenMai(rs.getString(1),
+//                        rs.getString(2),
+//                        rs.getFloat(3),
+//                        rs.getDouble(4),
+//                        rs.getInt(5),
+//                        rs.getDate(6),
+//                        rs.getDate(7),
+//                        rs.getInt(8),
+//                        rs.getInt(9),
+//                        rs.getString(10)));
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Lỗi SearchHinhThuc KhuyenMai!");
+//        }
+//        return listSeachHT;
+//    }
     @Override
     public ArrayList<KhuyenMai> timKiem(String ma, String ten, float mucGiam) {
         ArrayList<KhuyenMai> listTimKiem = new ArrayList<>();
@@ -101,17 +221,18 @@ public class KhuyenMaiRepository implements KhuyenMaiRepositoryImpl {
             while (rs.next()) {
                 listTimKiem.add(new KhuyenMai(rs.getString(1),
                         rs.getString(2),
-                        rs.getFloat(3),
-                        rs.getInt(4),
-                        rs.getDate(5),
+                        rs.getDouble(3),
+                        rs.getDouble(4),
+                        rs.getInt(5),
                         rs.getDate(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getDate(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10)));
             }
         } catch (Exception e) {
             System.out.println("Lỗi Tim Kiem KhuyenMai!");
         }
         return listTimKiem;
     }
-
 }

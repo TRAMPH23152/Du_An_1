@@ -12,19 +12,19 @@ import java.util.Date;
  */
 public class HoaDon {
     
-    private Integer id;
+    private String id;
     
     private String ma;
     
-    private Integer idNguoiDung;
+    private NguoiDung idNguoiDung;
     
-    private Integer idKhachHang;
+    private String idKhachHang;
     
-    private Integer idKhuyenMai;
+    private String idKhuyenMai;
     
-    private Float tongTien;
+    private Double tongTien;
     
-    private Float thanhTien;
+    private Double thanhTien;
     
     private Date ngayThanhToan;
     
@@ -38,7 +38,7 @@ public class HoaDon {
     }
 
     
-    public HoaDon(Integer id, String ma, Integer idNguoiDung, Integer idKhachHang, Integer idKhuyenMai, Float tongTien, Float thanhTien, Date ngayThanhToan, Date ngayTao, Date ngaySua, Integer trangThai) {
+    public HoaDon(String id, String ma, NguoiDung idNguoiDung, String idKhachHang, String idKhuyenMai, Double tongTien, Double thanhTien, Date ngayThanhToan, Date ngayTao, Date ngaySua, Integer trangThai) {
         this.id = id;
         this.ma = ma;
         this.idNguoiDung = idNguoiDung;
@@ -52,11 +52,16 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
-    public Integer getId() {
+    public HoaDon(String id) {
+        this.id = id;
+    }
+
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,43 +73,43 @@ public class HoaDon {
         this.ma = ma;
     }
 
-    public Integer getIdNguoiDung() {
+    public NguoiDung getIdNguoiDung() {
         return idNguoiDung;
     }
 
-    public void setIdNguoiDung(Integer idNguoiDung) {
+    public void setIdNguoiDung(NguoiDung idNguoiDung) {
         this.idNguoiDung = idNguoiDung;
     }
 
-    public Integer getIdKhachHang() {
+    public String getIdKhachHang() {
         return idKhachHang;
     }
 
-    public void setIdKhachHang(Integer idKhachHang) {
+    public void setIdKhachHang(String idKhachHang) {
         this.idKhachHang = idKhachHang;
     }
 
-    public Integer getIdKhuyenMai() {
+    public String getIdKhuyenMai() {
         return idKhuyenMai;
     }
 
-    public void setIdKhuyenMai(Integer idKhuyenMai) {
+    public void setIdKhuyenMai(String idKhuyenMai) {
         this.idKhuyenMai = idKhuyenMai;
     }
 
-    public Float getTongTien() {
+    public Double getTongTien() {
         return tongTien;
     }
 
-    public void setTongTien(Float tongTien) {
+    public void setTongTien(Double tongTien) {
         this.tongTien = tongTien;
     }
 
-    public Float getThanhTien() {
+    public Double getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(Float thanhTien) {
+    public void setThanhTien(Double thanhTien) {
         this.thanhTien = thanhTien;
     }
 
