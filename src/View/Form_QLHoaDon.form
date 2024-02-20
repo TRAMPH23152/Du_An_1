@@ -103,15 +103,15 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txt_NgayBD" min="-2" pref="164" max="-2" attributes="0"/>
                                           <Component id="jLabel5" min="-2" pref="119" max="-2" attributes="0"/>
+                                          <Component id="txt_NgayBD" min="-2" pref="159" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel6" min="-2" pref="118" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="txtNgayKT" min="-2" pref="170" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="txtNgayKT" min="-2" pref="157" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                               <Component id="btnTimKiem" min="-2" pref="155" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                               <Component id="btn_reset" min="-2" pref="117" max="-2" attributes="0"/>
@@ -142,12 +142,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txt_timKiem" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_NgayBD" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btn_reset" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtNgayKT" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_NgayBD" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNgayKT" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -327,10 +327,6 @@
                 <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m : "/>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="txt_NgayBD">
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="txtNgayKT">
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u:"/>
@@ -356,6 +352,10 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_resetActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="txt_NgayBD">
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="txtNgayKT">
             </Component>
           </SubComponents>
         </Container>
