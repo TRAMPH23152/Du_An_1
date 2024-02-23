@@ -36,12 +36,20 @@ public class KhachHangService implements KhachHangServiceIplm{
     @Override
     public String update(String Ma, KhachHang kh) {
            if(khachHangRepository.upDateKH(Ma, kh)){
-            return"Suawr thành công";
+            return"Sửa thành công";
         }else{
-            return "sua thất bại";
+            return "Sửa thất bại";
         }
         }
-    
+
+    @Override
+    public ArrayList<KhachHang> TimKiem(String Ten, String sdt) {
+    return  khachHangRepository.TimKiem(Ten, sdt);
+    }
+    public static void main(String[] args) {
+        KhachHangService khachHangService=new KhachHangService();
+        System.out.println(khachHangService.TimKiem("Nguyễn Thị A", "0123456789").toString());
+    }
     }
 
   

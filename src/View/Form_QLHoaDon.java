@@ -15,6 +15,7 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
     HDService hds = new HDService();
     ArrayList<HD> listHD = new ArrayList<>();
     HDReponsitory hdrepo = new HDReponsitory();
+
     ArrayList<HoaDonCT> listHD_CT = new ArrayList<>();
 
     public Form_QLHoaDon() {
@@ -25,8 +26,9 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
 
     public void loadTableHD() {
         DefaultTableModel model = (DefaultTableModel) tbl_HoaDon.getModel();
+        ArrayList<HD> listTBHD = hdrepo.getAll();
         model.setRowCount(0);
-        for (HD hd : listHD) {
+        for (HD hd : listTBHD) {
             Object[] data = new Object[]{
                 hd.getId(),
                 hd.getMaHoaDon(),

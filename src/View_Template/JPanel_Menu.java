@@ -4,7 +4,9 @@
  */
 package View_Template;
 
-import View_Template.*;
+
+
+
 import DomainModels.Model_Menu;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -25,39 +27,42 @@ public class JPanel_Menu extends javax.swing.JPanel {
     public event.EventMenuSelected event;
     public void addEventMenuSelected(event.EventMenuSelected event){
         this.event = event;
-        listMenu1.addEventMenuSelected(event);
+        listMenu.addEventMenuSelected(event);
     }
-    
+
     
     public JPanel_Menu() {
         initComponents();
         setOpaque(false);
-        listMenu1.setOpaque(false);
+        listMenu.setOpaque(false);
         init();
     }
+
     private void init(){
-        listMenu1.addItems(new Model_Menu("house","Trang Chủ",Model_Menu.MenuType.MENU));
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("cart","Bán Hàng",Model_Menu.MenuType.MENU));
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("product","Sản Phẩm",Model_Menu.MenuType.MENU));
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("employee","Nhân Viên",Model_Menu.MenuType.MENU));
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("traveler","Khách Hàng",Model_Menu.MenuType.MENU));
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("bill","Hóa Đơn",Model_Menu.MenuType.MENU));
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("analytics","Thống Kê",Model_Menu.MenuType.MENU));
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("analytics","Khuyến Mại",Model_Menu.MenuType.MENU));
+ 
+        listMenu.addItems(new Model_Menu("house","Trang Chủ",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("cart","Bán Hàng",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("product","Sản Phẩm",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("employee","Nhân Viên",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("traveler","Khách Hàng",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("bill","Hóa Đơn",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("analytics","Thống Kê",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("analytics","Khuyến Mại",Model_Menu.MenuType.MENU));
         
-        listMenu1.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
-        listMenu1.addItems(new Model_Menu("check-out","Đăng Xuất",Model_Menu.MenuType.MENU));
+        listMenu.addItems(new Model_Menu("","",Model_Menu.MenuType.SPACE));
+        listMenu.addItems(new Model_Menu("check-out","Đăng Xuất",Model_Menu.MenuType.MENU));
     
     
     }
-
+   
+    
     @Override
     protected void paintChildren(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -103,7 +108,7 @@ public class JPanel_Menu extends javax.swing.JPanel {
 
         jPanel_logo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        listMenu1 = new DomainModels.ListMenu<>();
+        listMenu = new DomainModels.ListMenu<>();
 
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(215, 454));
@@ -131,7 +136,7 @@ public class JPanel_Menu extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(listMenu1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(listMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +144,7 @@ public class JPanel_Menu extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel_logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(listMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,6 +152,6 @@ public class JPanel_Menu extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel_logo;
-    private DomainModels.ListMenu<String> listMenu1;
+    private DomainModels.ListMenu<String> listMenu;
     // End of variables declaration//GEN-END:variables
 }

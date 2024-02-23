@@ -20,16 +20,15 @@ import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-public class JFrame_Main extends javax.swing.JFrame {
+public class JFrame_MainNhanVien extends javax.swing.JFrame {
 
     /**
      * Creates new form JFrame_Main
      */
-    public JFrame_Main() {
+    public JFrame_MainNhanVien() {
         initComponents();
-
         setBackground(new Color(0, 0, 0));
-        jPanel_Menu1.initMoving(JFrame_Main.this);
+        jPanel_Menu1.initMoving(JFrame_MainNhanVien.this);
         // Đặt chế độ đóng cửa sổ
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setForm(new Form_BanHang());
@@ -40,22 +39,14 @@ public class JFrame_Main extends javax.swing.JFrame {
                     setForm(new Form_TrangChu());
                 } else if (index == 2) {
                     setForm(new Form_BanHang());
-                } else if (index == 4) {
-                    setForm(new Form_SanPham());
-                } else if (index == 6) {
-                    setForm(new Form_NV());
                 } else if (index == 8) {
                     setForm(new Form_KhachHang());
                 } else if (index == 10) {
                     setForm(new Form_QLHoaDon());
-                } else if (index == 12) {
-                    setForm(new Form_ThongKe());
-                } else if (index == 14) {
-                    setForm(new Form_KM());
                 } else if (index == 16) {
-                    
-                    new Form_DangNhap().setVisible(true);
-                    setVisible(false);
+                    Form_DangNhap loginForm = new Form_DangNhap();
+                    loginForm.setVisible(true);
+                    setVisible(false); // Ẩn form chính
                 }
             }
         });
@@ -145,14 +136,18 @@ public class JFrame_Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrame_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrame_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrame_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrame_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -161,7 +156,7 @@ public class JFrame_Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_Main().setVisible(true);
+                new JFrame_MainNhanVien().setVisible(true);
             }
         });
     }

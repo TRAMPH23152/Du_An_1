@@ -8,6 +8,7 @@ import DomainModels.NguoiDung;
 import Service.NguoiDungService;
 import javax.swing.JOptionPane;
 import View_Template.JFrame_Main;
+import View_Template.JFrame_MainNhanVien;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,17 +17,18 @@ import java.util.regex.Pattern;
  *
  * @author acer
  */
-public class From_DangNhap extends javax.swing.JFrame {
+public class Form_DangNhap extends javax.swing.JFrame {
 
     NguoiDungService nguoiDungService = new NguoiDungService();
 
     public static String idDangNhap = "";
     public static String emailDangNhap = "";
 
-    /**
-     * Creates new form From_DangNhap
-     */
-    public From_DangNhap() {
+    public static NguoiDung nd = null;
+    public static NguoiDung nguoiDung = new NguoiDung();
+    public static ArrayList<NguoiDung> nguoiDungs;
+
+    public Form_DangNhap() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -91,7 +93,7 @@ public class From_DangNhap extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("User name ");
+        jLabel2.setText("Email:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("PassWord :");
@@ -156,7 +158,7 @@ public class From_DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        NguoiDung nguoiDung = new NguoiDung();
+
         nguoiDung.setEmailNguoiDung((txtUserName.getText()));
         nguoiDung.setMatKhauNguoiDung(String.valueOf(txtPassDN.getPassword()));
         if (nguoiDung.getEmailNguoiDung().isEmpty() || !validateEmail(nguoiDung.getEmailNguoiDung())) {
@@ -168,7 +170,7 @@ public class From_DangNhap extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu.");
             return;
         }
-        ArrayList<NguoiDung> nguoiDungs = nguoiDungService.checkLogin(nguoiDung);
+        nguoiDungs = nguoiDungService.checkLogin(nguoiDung);
 
         if (nguoiDungs.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Đăng nhập thất bại, vui lòng kiểm tra lại tài khoản hoặc mật khẩu");
@@ -180,10 +182,25 @@ public class From_DangNhap extends javax.swing.JFrame {
         if (idNguoiDung.equals(1)) { // Replace 1 with the actual ID for "Quản lý"
             JFrame_Main frame_Main = new JFrame_Main();
             frame_Main.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Đây là view của quản lý");
+            JOptionPane.showMessageDialog(this, "Màn hình của quản lý");
+            setVisible(false);
+
+            if (!nguoiDungs.isEmpty()) {
+                String tenUser = nguoiDungs.get(0).getTenNguoiDung();
+                System.out.println("tenUser  admin:" + tenUser);
+                nd = nguoiDungs.get(0);
+            }
+
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Đây là view của nhân viên");
+            JFrame_MainNhanVien frame_Main = new JFrame_MainNhanVien();
+            frame_Main.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Màn hình của nhân viên");
+            if (!nguoiDungs.isEmpty()) {
+                String tenUser = nguoiDungs.get(0).getTenNguoiDung();
+                System.out.println("tenUser employee:" + tenUser);
+            }
+            setVisible(false);
         }
         idDangNhap = nguoiDungService.getIDByEmail(txtUserName.getText());
         emailDangNhap = txtUserName.getText();
@@ -206,20 +223,21 @@ public class From_DangNhap extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(From_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(From_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(From_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(From_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new From_DangNhap().setVisible(true);
+                new Form_DangNhap().setVisible(true);
             }
         });
     }

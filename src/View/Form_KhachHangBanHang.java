@@ -241,6 +241,11 @@ public class Form_KhachHangBanHang extends javax.swing.JFrame {
 
         btnTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTimKiem.setText("OK");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -418,10 +423,12 @@ public class Form_KhachHangBanHang extends javax.swing.JFrame {
         String ten = txtTenKH.getText();
         String sdt = txtSDT.getText();
 
-        KhachHang khachHang = new KhachHang(null, ten, sdt);
+        KhachHang khachHang = new KhachHang(ten, sdt);
 
-        service.them(khachHang);
+        hoaDonChoRepository.addKhachHang(khachHang);
         JOptionPane.showMessageDialog(this, "Thêm Thành  Công");
+        txtTenKH.setText("");
+        txtSDT.setText("");
         loadData(1);
 
 
@@ -511,6 +518,29 @@ public class Form_KhachHangBanHang extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btn_chonmuaActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+
+        String timKiemText = txtTimKiem.getText().toLowerCase();
+        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
+        model.setRowCount(0);
+
+        ArrayList<KhachHang> kh = service.TimKiem(timKiemText, timKiemText);
+        for (KhachHang k : kh) {
+            Object[] row = new Object[]{
+                k.getMa(),
+                k.getTen(),
+                k.getNgaySinh(),
+                k.getGioiTinh() == 1 ? "Nam" : "Nữ",
+                k.getSdt(),
+                k.getEmail(),
+                k.getDiaChi(),
+              //  k.getTrangThai() == 1 ? "Còn Hoạt Động" : "Không Hoạt Động"
+            };
+            model.addRow(row);
+        }
+
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

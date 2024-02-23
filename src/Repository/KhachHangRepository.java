@@ -72,6 +72,7 @@ public class KhachHangRepository {
         return false;
     }
     
+    
      public boolean upDateKH(String Ma, KhachHang khachHang) {
 
         String sql = "update KhachHang set  Ten = ?, NgaySinh = ?, "
@@ -97,6 +98,44 @@ public class KhachHangRepository {
         }
         return false;
     }
+     
+     public ArrayList<KhachHang> TimKiem(String Ten,String sdt){
+      ArrayList<KhachHang> lstkh = new ArrayList<>();
+        String sql = "select Ma, Ten, NgaySinh, GioiTinh, Sdt, Email, DiaChi, TrangThai from"
+                + " KHACHHANG where Ten = ? or Sdt = ? ";
+        
 
+        try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setObject(1, Ten);
+            ps.setObject(2, sdt);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang();
 
+                kh.setMa(rs.getString("Ma"));
+                kh.setTen(rs.getString("Ten"));
+                kh.setNgaySinh(rs.getDate("NgaySinh"));
+                kh.setGioiTinh(rs.getInt("GioiTinh"));
+                kh.setSdt(rs.getString("Sdt"));
+                kh.setEmail(rs.getString("Email"));
+                kh.setDiaChi(rs.getString("DiaChi"));
+                kh.setTrangThai(rs.getInt("TrangThai"));
+
+                lstkh.add(kh);
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return lstkh;
+     
+     }
+    public static void main(String[] args) {
+        KhachHangRepository khachHangRepository=new KhachHangRepository();
+//        System.out.println(khachHangRepository.TimKiem('Nguyễn Thị A', 0).);
+    }
 }
+
+

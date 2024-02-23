@@ -19,4 +19,6 @@ public interface KhachHangServiceIplm {
     public String them(KhachHang kh);
 
     public String update(String Ma, KhachHang kh);
+    
+    public ArrayList<KhachHang> TimKiem( String Ten, String sdt);
 }

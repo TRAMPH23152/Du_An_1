@@ -55,6 +55,14 @@ public class KhachHang {
         this.sdt = sdt;
     }
 
+    public KhachHang(String ten, String sdt) {
+        this.ten = ten;
+        this.sdt = sdt;
+    }
+
+
+
+
 
     public Integer getId() {
         return id;
